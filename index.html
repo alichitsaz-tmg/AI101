@@ -482,9 +482,9 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <img class="t-metal" src="assets/logo/metal-t.png" alt="TaylorMade">
     <div class="kicker" style="margin-bottom:18px">TAYLORMADE <span class="sep">/</span> AI ENABLEMENT <span class="sep">/</span> POWER SESSION</div>
     <h1 class="title">DIALED<br><span class="ln2">IN.</span></h1>
-    <p class="lead-lg" style="margin-top:24px">The people who get fluent in AI first will move faster, work sharper, and win more. Today isn't a lecture — it's <span class="hl">a round</span>. Real work from your real world, <span class="hl">three tools in your bag</span>, and your department's own use cases. You'll leave knowing which tool to reach for and holding a prompt you can run <span class="hl">Monday morning</span>. Tee it up.</p>
+    <p class="lead-lg" style="margin-top:24px">The people who get fluent in AI first move faster, work sharper, and win more. This isn't a lecture — it's <span class="hl">a round you play at your own pace</span>. Get fitted and you'll get a path built for your team and your level: which tool to reach for, the one habit behind every great prompt, and copy-ready prompts for your real work. <span class="hl">Let's get you dialed in.</span></p>
     <div class="t-foot">
-      <button class="btn-primary" data-goto="AGENDA">START THE ROUND <span class="ar">▶</span></button>
+      <button class="btn-primary" data-goto="TEE">GET FITTED <span class="ar">▶</span></button>
       <span class="t-credit">CLAUDE · MICROSOFT COPILOT · GEMINI ENTERPRISE — RIGHT TOOL, RIGHT SHOT</span>
     </div>
     <small class="note" style="margin-top:26px;color:var(--dim-2)">Choose-your-path, not a slideshow — play your own ball, and the <b style="color:var(--g7)">Scorecard</b> button always brings you back. <span class="hl" style="color:var(--g7)">It was built with our own AI tools — what you're clicking <em>is</em> the demo.</span></small>
@@ -495,18 +495,20 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
 <section class="node node--photo" id="AGENDA" data-branch="tee">
   <div class="bg ov-prod" style="background-image:url('assets/img/di_agenda.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">Today's card · the round at a glance</div>
-    <h2 class="h">TODAY'S ROUND</h2>
-    <p class="lead" style="margin-top:12px">A full round, station by station. Here's the card — each station's golf name and, in plain terms, what it's for. <span style="color:var(--dim)">It stays hands-on the whole way.</span></p>
-    <div class="agenda">
-      <div class="ag-row fadein d1" data-goto="TEE"><div class="ag-t">~8 min</div><div><h4>The Tee <span class="ag-plain">Where we stand</span></h4><div class="ag-p">Call the team's handicap, the local rules (approved tools), and what you'll walk away with.</div></div></div>
-      <div class="ag-row fadein d2" data-goto="ACCESS"><div class="ag-t">~15 min</div><div><h4>The Bag <span class="ag-plain">Crash course · the three platforms</span></h4><div class="ag-p">Your three AI platforms — Claude, Microsoft Copilot, and Gemini Enterprise — what each is best at, models, memory, and the right tool for the job.</div></div></div>
-      <div class="ag-row fadein d3" data-goto="ROUTINE"><div class="ag-t">~12 min</div><div><h4>The Range <span class="ag-plain">The one habit</span></h4><div class="ag-p">The Pre-Shot Routine for great prompts — then warm up your swing on the driving range.</div></div></div>
-      <div class="ag-row fadein d4" data-goto="COURSE"><div class="ag-t">~20 min</div><div><h4>The Course <span class="ag-plain">Your real work</span></h4><div class="ag-p">Pick your function. Copy-ready prompts, plus three live signature demos.</div></div></div>
-      <div class="ag-row fadein d5" data-goto="PRO1"><div class="ag-t">~ flex</div><div><h4>Going Pro <span class="ag-plain">Advanced · scale it</span></h4><div class="ag-p">From a chat to a system: Project → Skill, feed it your assets, on-brand design, and verify. Optional — skip for a beginner room.</div></div></div>
-      <div class="ag-row fadein d6" data-goto="CLUB"><div class="ag-t">~10 min</div><div><h4>The 19th <span class="ag-plain">Sign the card</span></h4><div class="ag-p">A summary scorecard, the shared Brand Guide skill, and your Monday move.</div></div></div>
-    </div>
-    <div class="btnrow"><button class="btn-primary" data-goto="TEE">To the tee <span class="ar">▶</span></button></div>
+    <div class="eyebrow">Your round · built from your fitting</div>
+    <h2 class="h">YOUR ROUND</h2>
+    <p class="lead" id="planSummary" style="margin-top:12px">Here's your round.</p>
+    <style>
+      #AGENDA .planlist{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+      #AGENDA .planrow{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:4px;padding:11px 16px;cursor:pointer;transition:.25s var(--ease);text-align:left;width:100%;font-family:inherit;color:inherit}
+      #AGENDA .planrow:hover{border-color:var(--red);transform:translateX(4px)}
+      #AGENDA .planrow .pn{flex:0 0 auto;width:23px;height:23px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
+      #AGENDA .planrow h4{font-size:14.5px;font-weight:800;margin:0;text-transform:uppercase;letter-spacing:.01em}
+      #AGENDA .planrow .pw{font-size:12px;color:var(--dim);margin-top:1px}
+    </style>
+    <div class="planlist" id="planPath"></div>
+    <div class="btnrow" style="margin-top:18px"><button class="btn-primary" id="planStart" data-goto="ACCESS">Start my round <span class="ar">▶</span></button><button class="lnk" data-goto="TEE">Re-fit →</button></div>
+    <small class="note" style="margin-top:12px">Want the full tour? Every station is on the <b class="hl">rail up top</b> — play any hole, any time.</small>
   </div>
 </section>
 
@@ -515,24 +517,42 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
 <section class="node node--photo" id="TEE" data-branch="tee">
   <div class="bg ov-72" style="background-image:url('assets/img/di_tee.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">The Tee · where the team stands today</div>
-    <h2 class="h">KNOW YOUR HANDICAP</h2>
-    <p class="lead" style="margin-top:14px">Before any round, you know your handicap. So call yours. <span class="hl">Tap the level that's you</span> — no wrong answer, and it's just for you. We're all on the same course, teeing off from different spots; what matters is knowing where you're starting.</p>
-    <div class="poll fadein d1">
-      <div class="pq"><b>"How would you rate your AI comfort?"</b> &nbsp;Tap the one that's you.</div>
-      <div class="poll-row" data-poll="0"><span class="pl">Beginner</span><div class="poll-bar"><div class="poll-fill"></div></div><span class="pv"></span></div>
-      <div class="poll-row" data-poll="1"><span class="pl">Some experience</span><div class="poll-bar"><div class="poll-fill"></div></div><span class="pv"></span></div>
-      <div class="poll-row" data-poll="2"><span class="pl">Regular user</span><div class="poll-bar"><div class="poll-fill"></div></div><span class="pv"></span></div>
-      <div class="poll-row" data-poll="3"><span class="pl">Advanced</span><div class="poll-bar"><div class="poll-fill"></div></div><span class="pv"></span></div>
+    <div class="eyebrow">The Tee · get fitted</div>
+    <h2 class="h">GET FITTED</h2>
+    <p class="lead" style="margin-top:12px">Before you play, get fitted. <span class="hl">Three quick taps</span> and I'll build your round — the right tools, your team's real work, at your pace. <span style="color:var(--dim)">It's just for you, and you can change it anytime.</span></p>
+    <style>
+      #TEE .fitq{margin-top:20px}
+      #TEE .fitl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:800;margin-bottom:9px}
+      #TEE .fitrow{display:flex;flex-wrap:wrap;gap:8px}
+      #TEE .fitopt{font-family:inherit;font-size:13px;font-weight:700;color:var(--gD);background:#161616;border:1px solid var(--line);border-radius:8px;padding:10px 15px;cursor:pointer;transition:.2s;text-align:left;line-height:1.15}
+      #TEE .fitopt small{display:block;font-size:10.5px;font-weight:500;color:var(--dim);margin-top:3px;letter-spacing:0;text-transform:none}
+      #TEE .fitopt:hover{border-color:var(--line-2,#444)}
+      #TEE .fitopt.on{background:var(--red);border-color:var(--red);color:#fff}
+      #TEE .fitopt.on small{color:rgba(255,255,255,.88)}
+      #TEE .fitdept .fitopt{padding:8px 13px;border-radius:20px;font-size:12px}
+    </style>
+    <div class="fitq">
+      <div class="fitl">1 · What do you want to master?</div>
+      <div class="fitrow">
+        <button class="fitopt" data-fit="focus" data-val="all">Everything<small>A bit of it all</small></button>
+        <button class="fitopt" data-fit="focus" data-val="claude">Claude<small>Our primary platform</small></button>
+        <button class="fitopt" data-fit="focus" data-val="copilot">Microsoft Copilot<small>Right inside Office</small></button>
+      </div>
     </div>
-    <div class="strip fadein d2" style="margin-top:22px"><div class="st">We're all on the same course — at different tees</div><p>There's no wrong answer above. Wherever you are is the right place to start. Here's roughly <b class="hl">what each level looks like day to day</b> — find yourself, then today we move you up one.</p></div>
-    <div class="cards g4" style="margin-top:14px">
-      <div class="card-i fadein d2"><div class="tier">Beginner</div><h4>Curious, barely started</h4><p>Tried it once or twice; not sure what to ask or whether to trust it. You still write every brief, recap, and email from a blank page.</p></div>
-      <div class="card-i fadein d2"><div class="tier">Some experience</div><h4>Occasional · one task at a time</h4><p>You reach for it now and then — draft an email, summarize a doc, spin up headlines. One-off chats, and you re-explain yourself each time.</p></div>
-      <div class="card-i fadein d3"><div class="tier">Regular user</div><h4>Daily · part of the workflow</h4><p>First drafts, competitive scans, reworking copy, summarizing across docs. You've set memory or used a connector, and you edit from a strong first draft.</p></div>
-      <div class="card-i fadein d4"><div class="tier">Advanced</div><h4>Building systems, not just chatting</h4><p>Projects with your own files, repeatable Skills, connectors across your stack, on-brand by default. You design workflows and teach others.</p></div>
+    <div class="fitq">
+      <div class="fitl">2 · Which team are you on?</div>
+      <div class="fitrow fitdept" id="fitDept"></div>
     </div>
-    <div class="btnrow"><button class="btn-ghost" data-goto="RULES">First, the local rules ▶</button></div>
+    <div class="fitq">
+      <div class="fitl">3 · How's your AI game?</div>
+      <div class="fitrow">
+        <button class="fitopt" data-fit="level" data-val="0">New to it<small>Barely started</small></button>
+        <button class="fitopt" data-fit="level" data-val="1">Getting going<small>Now and then</small></button>
+        <button class="fitopt" data-fit="level" data-val="2">Regular<small>Daily habit</small></button>
+        <button class="fitopt" data-fit="level" data-val="3">Dialed in<small>Building systems</small></button>
+      </div>
+    </div>
+    <div class="btnrow" style="margin-top:24px"><button class="btn-primary" data-goto="AGENDA">Build my round <span class="ar">▶</span></button><button class="lnk" data-goto="RULES">Local rules first →</button></div>
   </div>
 </section>
 
@@ -593,7 +613,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="bg ov-prod" style="background-image:url('assets/img/di_bag4.jpg')"></div>
   <style>
     #ANATOMY .wrap{max-width:1180px}
-    #ANATOMY .plat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    #ANATOMY .plat{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
     #ANATOMY .plat-card{position:relative;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:4px;padding:20px 20px 18px;transition:.28s var(--ease)}
     #ANATOMY .plat-card:hover{border-color:var(--line-2);transform:translateY(-3px)}
     #ANATOMY .plat-card .mono{position:absolute;top:15px;right:16px;width:30px;height:30px;border:1px solid var(--line-2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--red)}
@@ -608,9 +628,9 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     @media(max-width:860px){#ANATOMY .plat{grid-template-columns:1fr}}
   </style>
   <div class="wrap">
-    <div class="eyebrow">The Bag · three clubs, three jobs</div>
-    <h2 class="h">THREE CLUBS IN THE BAG</h2>
-    <p class="lead" style="margin-top:10px">Same swing every time — a prompt box, a model picker, and a way to attach your work. What changes is the <b class="hl">job each one's built for</b>. Here's what each platform is best at.</p>
+    <div class="eyebrow">The Bag · the right club for the shot</div>
+    <h2 class="h">KNOW YOUR BAG</h2>
+    <p class="lead" style="margin-top:10px">Same swing every time — a prompt box, a model picker, and a way to attach your work. What changes is the <b class="hl">job each one's built for</b>. Two you'll reach for most:</p>
     <div class="plat">
       <div class="plat-card fadein d1">
         <span class="mono">✳</span>
@@ -636,20 +656,8 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
         </ul>
         <div class="pmeta">CLAUDE (OPUS) + GPT-5.5 · WORK IQ<br>copilot.microsoft.com · M365 Copilot in your Office apps</div>
       </div>
-      <div class="plat-card fadein d3">
-        <span class="mono">✦</span>
-        <div class="tg">Images, video, Google + research</div>
-        <h4>Gemini Enterprise</h4>
-        <p class="bf"><b>Best for</b> visual creation and research — generate images and video, run Deep Research, and search your company data and Google together.</p>
-        <ul class="feat">
-          <li>Nano Banana Pro images + Veo 3.1 video</li>
-          <li>Deep Research, NotebookLM &amp; Idea Generation agents</li>
-          <li>Federated connectors: OneDrive, Outlook, SharePoint</li>
-        </ul>
-        <div class="pmeta">GEMINI 3.1 PRO (3.5 ROLLING OUT)<br>TaylorMade Gemini portal (secure Vertex AI)</div>
-      </div>
     </div>
-    <div class="strip fadein d3" style="margin-top:18px"><div class="st">The honest part — overlap is fine</div><p>These lanes aren't walls. <b class="hl">Copilot can even run Claude Opus</b>, and Gemini can reach your M365 files through federated connectors. Don't overthink it — grab the club that fits the shot. Two more sit in the bag for lighter work: <b>Copilot Chat</b> (free, GPT-5.5) for quick everyday questions, and <b>Adobe Firefly</b> for polished image &amp; video editing.</p></div>
+    <div class="strip fadein d3" style="margin-top:18px"><div class="st">Also in the bag</div><p>When the shot is <b class="hl">visual</b> — images or video — reach for <b>Gemini Enterprise</b> (Nano Banana Pro, Veo 3.1) or <b>Adobe Firefly</b>. For quick everyday questions there's <b>Copilot Chat</b>, free for everyone. And the lanes overlap on purpose — <b class="hl">Copilot can even run Claude Opus</b> — so don't overthink it: grab the club that fits the shot.</p></div>
     <div class="btnrow"><button class="btn-primary" data-goto="CLAUDEUI">Find your way around Claude <span class="ar">▶</span></button><button class="lnk" data-goto="BAG1">The crash course →</button><button class="lnk" data-goto="BAG4">"Which tool, when" →</button></div>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://aiuseguide.tmgolf.biz/" target="_blank" rel="noopener">TaylorMade AI Tools Guide <span class="dom">aiuseguide.tmgolf.biz</span></a></div></div>
   </div>
@@ -833,7 +841,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="eyebrow">The Bag · your toolkit · crash course</div>
     <h2 class="h">KNOW WHAT'S IN YOUR BAG</h2>
-    <p class="lead" style="margin-top:12px">A quick crash course before we play — so everyone's even, wherever you're starting from. The whole loop is four steps: <b class="hl">bring your work in, ask, save the write-up, polish it.</b> <span style="color:var(--dim)">It's the same swing in Claude, Copilot, or Gemini.</span></p>
+    <p class="lead" style="margin-top:12px">A quick crash course before we play — so everyone's even, wherever you're starting from. The whole loop is four steps: <b class="hl">bring your work in, ask, save the write-up, polish it.</b> <span style="color:var(--dim)">It's the same swing in Claude or Copilot.</span></p>
     <div class="cards g4">
       <div class="card-i d1 fadein"><div class="tier">Step 1 · bring it in</div><h4>Add your work</h4><p>Click <b class="hl">+</b> under the message box → add a file, or pull it from a connector like SharePoint or Box.</p></div>
       <div class="card-i d2 fadein"><div class="tier">Step 2 · ask</div><h4>Say what you want</h4><p>Plain English: <em>"Summarize this launch recap and flag the three things a leader should know."</em></p></div>
@@ -935,7 +943,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="eyebrow">The Bag · the right club for every shot</div>
     <h2 class="h">WHICH TOOL FOR WHICH SHOT</h2>
-    <p class="lead" style="margin-top:12px">All three platforms are strong — the skill is reaching for the right one. <b class="hl">Tap the shot you're playing</b> and the bag tells you which club to pull, and why.</p>
+    <p class="lead" style="margin-top:12px">Every tool in the bag is strong — the skill is reaching for the right one. <b class="hl">Tap the shot you're playing</b> and the bag tells you which club to pull, and why.</p>
     <div class="shotbar" id="shotChips">
       <button class="shotchip" data-shot="write">Write something long</button>
       <button class="shotchip" data-shot="research">Quick web research</button>
@@ -968,7 +976,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
       <div class="psr-step fadein d3"><div class="sn">Move 3</div><h4>See the shot</h4><div class="gloss">Specify the rules.</div><p>Picture the landing: <b style="color:#fff">format, length, tone, audience</b>. "One-page exec brief, premium voice, ready for HQ." Now it lands where you aimed.</p></div>
     </div>
     <div class="prompt fadein d3" style="margin-top:22px"><button class="copybtn" data-copy>⧉ Copy</button><span class="pm">All three moves, in one breath</span><span class="ptxt">You are a senior brand marketer for TaylorMade Golf launching the P-Series irons in Korea this season — precision-focused golfers, heavy KakaoTalk usage, Callaway pushing fitting bundles. Draft three campaign messages and a one-page launch brief. Premium, confident voice, ready for HQ review.</span></div>
-    <div class="strip fadein d4"><div class="st">And the 4th move — commit &amp; adjust</div><p>First answer 80% there? That's normal — it's a conversation, not a vending machine. Take a <b class="hl">mulligan</b>: "tighten to the top 3, add a Japan angle, make it punchier." You refine, you don't restart. <span style="color:var(--muted)">(This is the master doc's <b class="hl">RACI-P</b> framework, re-cut as a routine you'll actually remember on the tee.)</span></p></div>
+    <div class="strip fadein d4"><div class="st">And the 4th move — commit &amp; adjust</div><p>First answer 80% there? That's normal — it's a conversation, not a vending machine. Take a <b class="hl">mulligan</b>: "tighten to the top 3, add a Japan angle, make it punchier." You refine, you don't restart. <span style="color:var(--muted)">(Five parts — role, context, task, format, specifics — the difference between a vague ask and a great answer.)</span></p></div>
     <div class="btnrow"><button class="btn-ghost" data-goto="RANGE">Now hit some balls ▶</button></div>
   </div>
 </section>
@@ -1009,7 +1017,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="redbar"></div>
     <h2 class="h">PICK YOUR HOLE</h2>
-    <p class="lead" style="margin-top:14px">Every team has work the AI can take off its plate. <b class="hl">Pick your department</b>, then your holes — each with copy-paste prompts to try in any of the three tools. <span style="color:var(--dim)">Swap the [brackets] for your real details — the AI only knows what you give it.</span></p>
+    <p class="lead" style="margin-top:14px">Every team has work the AI can take off its plate. <b class="hl">Pick your department</b>, then your holes — each with copy-paste prompts to try in whichever tool you're using. <span style="color:var(--dim)">Swap the [brackets] for your real details — the AI only knows what you give it.</span></p>
     <style>
       #COURSE .deptbar{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
       #COURSE .dchip{font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--gD);background:#161616;border:1px solid var(--line);border-radius:20px;padding:7px 13px;cursor:pointer;transition:.2s}
@@ -1021,96 +1029,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     </style>
     <div class="deptbar" id="deptChips"></div>
     <div class="cards g3" id="deptHoles" style="margin-top:14px"></div>
-    <div class="btnrow"><button class="btn-primary" data-goto="PRO1">Ready to scale it? Going Pro <span class="ar">▶</span></button><button class="lnk" data-goto="DEMO3">▶ See one run live</button></div>
-  </div>
-</section>
-
-<!-- DEMO1 -->
-<section class="node node--photo" id="DEMO1" data-branch="course">
-  <div class="bg ov-prod" style="background-image:url('assets/img/di_demo1.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">Signature hole 1 · live demo</div>
-    <h2 class="h">THE REGIONAL LAUNCH BRIEF</h2>
-    <p class="lead" style="margin-top:12px"><span class="hl-r">Par 5</span> — a week of briefing, approvals, and rewrites, made in five minutes. <span style="color:var(--dim)">Best played in <b style="color:var(--g7)">Claude</b> or <b style="color:var(--g7)">M365 Copilot</b> — copy the prompt and run it live.</span></p>
-    <p class="lead" style="margin-top:14px;font-size:15px"><b class="hl-r">Call your shot.</b> Predict before we hit send — then run it live and tap each card to check the room.</p>
-    <div class="cys">
-      <div class="cys-card fn"><span class="plus">+</span><h4>Will it hit all five asks?</h4><div class="reveal"><p>Yes — messages, media, athletes, retail, timeline, in order. It structures to exactly what you asked.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>Will it localize to Japan unprompted?</h4><div class="reveal"><p>Yes — it leans into LINE, private clubs, and precision, because the context set it up to.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>Publish-ready, or strong first draft?</h4><div class="reveal"><p>Strong first draft — about 80% there. The framework's done; you bring the final judgment.</p></div></div>
-    </div>
-    <div class="prompt fadein d1" style="margin-top:18px"><button class="copybtn" data-copy>⧉ Copy</button><span class="pm">Demo 1 · paste into your AI tool</span><span class="ptxt">You are a senior brand marketing strategist for TaylorMade Golf with 15 years of experience in global GTM for premium golf equipment. This output is for an internal HQ global marketing review. Context: TaylorMade launched the Qi4D driver in January 2026. We are now in the Japan market planning for the P790/P-Series irons — Japan's focus product for this season. Japan market context: golf participation is growing (4% rounds growth in 2025), private club memberships remain strong, precision fitting is highly valued by Japanese golfers, and our athlete partnerships with Japanese tour players are a key differentiator. Callaway is active in the market with bundled fitting programs. Intent: Draft a comprehensive Japan market GTM campaign brief for the P-Series irons covering: (1) Three key messages tailored to Japanese golfer values (precision, craftsmanship, performance), (2) Recommended media mix with emphasis on LINE, digital, and in-club activation, (3) Athlete content activation recommendations, (4) Retail partner activation plan for top private club accounts, (5) 90-day timeline from now through summer season. Format: structured executive brief, 700 words, ready for HQ review.</span></div>
-    <div class="why fadein d2"><div class="st">The debrief line</div><p>"What just took your team a week of back-and-forth — briefing, approvals, rewrites — now takes 5 minutes and is directionally <b class="hl">80% of the way there</b>. The brief isn't finished. But the framework is done, and you iterate from here."</p></div>
-    <div class="btnrow fadein d3"><button class="btn-ghost" data-goto="DEMO2">Next signature hole ▶</button><button class="lnk back" data-goto="COURSE">Scorecard</button></div>
-  </div>
-</section>
-
-<!-- DEMO2 -->
-<section class="node node--photo" id="DEMO2" data-branch="course">
-  <div class="bg ov-86" style="background-image:url('assets/img/di_demo2.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">Signature hole 2 · live demo</div>
-    <h2 class="h">THE COMPETITIVE TEARDOWN</h2>
-    <p class="lead" style="margin-top:12px">Your competitors read the same reports you do. The edge is <span class="hl">speed</span>. A structured teardown — in 90 seconds. <span style="color:var(--dim)">Best in <b style="color:var(--g7)">Gemini Deep Research</b> or <b style="color:var(--g7)">Claude</b>.</span></p>
-    <p class="lead" style="margin-top:14px;font-size:15px"><b class="hl-r">Call your shot.</b> Predict before it runs — then tap each card to check.</p>
-    <div class="cys">
-      <div class="cys-card fn"><span class="plus">+</span><h4>Will it name where we're vulnerable, not just where we win?</h4><div class="reveal"><p>Yes — that's the ask, and it's the half most teardowns skip.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>Generic competitor fluff, or specific positioning?</h4><div class="reveal"><p>Specific — because we told it the exact dimensions to analyze.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>How long would this take by hand?</h4><div class="reveal"><p>Half a day of digging. Here: about 90 seconds.</p></div></div>
-    </div>
-    <div class="prompt fadein d1" style="margin-top:18px"><button class="copybtn" data-copy>⧉ Copy</button><span class="pm">Demo 2 · paste into your AI tool</span><span class="ptxt">You are a competitive intelligence analyst specializing in the premium golf equipment market. Analyze Callaway Golf's global marketing strategy for 2026 across the following dimensions: (1) Core brand messaging and positioning — what story are they telling?, (2) Athlete and ambassador strategy — who are they featuring and in what markets?, (3) Media and content strategy — where are they investing in paid, earned, and owned?, (4) Retail and channel activation — what programs are they running with green-grass and retail partners?, (5) Where TaylorMade has a clear and defensible advantage, (6) Where TaylorMade is most vulnerable to Callaway's messaging. Output: a structured one-page competitive brief, written for a global brand marketing team. Be specific and direct. Use publicly available information.</span></div>
-    <div class="why fadein d2"><div class="st">The debrief line</div><p>"Your competitors have access to the same information you do. The difference is <b class="hl">speed</b>. The AI synthesizes this in 90 seconds. Your team can do this before every competitive season, every product launch, every retailer meeting."</p></div>
-    <div class="btnrow fadein d3"><button class="btn-ghost" data-goto="DEMO3">Next: the cross-tool hole ▶</button><button class="lnk back" data-goto="COURSE">Scorecard</button></div>
-  </div>
-</section>
-
-<!-- DEMO3 -->
-<section class="node node--photo" id="DEMO3" data-branch="course">
-  <div class="bg ov-prod" style="background-image:url('assets/img/di_demo3.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">Signature hole 3 · the cross-tool shot</div>
-    <h2 class="h">THE M365 SWEEP</h2>
-    <p class="lead" style="margin-top:12px">Forty-five minutes of inbox archaeology, done in sixty seconds — across <b class="hl">email, Teams, and SharePoint at once</b>.</p>
-    <p class="lead" style="margin-top:14px;font-size:15px"><b class="hl-r">Call your shot.</b> Predict before it runs — then tap each card to check.</p>
-    <div class="cys">
-      <div class="cys-card fn"><span class="plus">+</span><h4>Email AND Teams AND SharePoint in one shot?</h4><div class="reveal"><p>Yes — M365 Copilot sees them natively; in Claude, switch the Microsoft 365 connector on. Either way, all three at once.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>Will every item trace back to a source?</h4><div class="reveal"><p>Yes — ask it to, and each decision and owner points to where it came from.</p></div></div>
-      <div class="cys-card fn"><span class="plus">+</span><h4>By hand vs. this?</h4><div class="reveal"><p>About 45 minutes of inbox archaeology → roughly 60 seconds.</p></div></div>
-    </div>
-    <div class="strip fadein d1"><div class="st">Set up first</div><p><b class="hl">M365 Copilot</b> already sees your mail, Teams &amp; SharePoint — nothing to set up. In <b class="hl">Claude</b>, switch on the connector once: <b class="hl">+ menu → Connectors → Microsoft 365 → sign in.</b></p></div>
-    <div class="prompt fadein d2" style="margin-top:16px"><button class="copybtn" data-copy>⧉ Copy</button><span class="pm">Demo 3 · paste into M365 Copilot or Claude</span><span class="ptxt">Search my Outlook email and Teams messages from the last 30 days for anything related to [project or topic]. Read the relevant messages and documents. Extract: (1) Key decisions that have been made, (2) Outstanding open questions or unresolved issues, (3) Action items and who owns them. Then draft a one-page status update I can share at our team meeting. Format: executive summary with three sections — Decisions Made, Open Questions, Next Actions.</span></div>
-    <div class="why fadein d3"><div class="st">The debrief line</div><p>"That's 45 minutes of inbox archaeology — done in 60 seconds. And it works across email <b class="hl">AND</b> Teams <b class="hl">AND</b> SharePoint simultaneously. That cross-tool synthesis in one shot is the unlock."</p></div>
-    <div class="btnrow fadein d3"><button class="btn-primary" data-goto="PRO1">To Going Pro <span class="ar">▶</span></button><button class="lnk back" data-goto="COURSE">Back to the course</button></div>
-  </div>
-</section>
-
-<!-- BACKUP · facilitator break-glass (utility node, not in ORDER) -->
-<section class="node node--photo" id="BACKUP" data-branch="course">
-  <div class="bg ov-86" style="background-image:url('assets/img/di_demo2.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">Facilitator · break glass if a demo stalls</div>
-    <h2 class="h">IF THE LIVE SHOT WON'T DROP</h2>
-    <p class="lead" style="margin-top:10px">Network, latency, or an odd result — it happens. Don't wait in silence: <b class="hl">narrate what good looks like</b>, then keep moving. Here's the expected result for each live hole.</p>
-    <div class="two-col">
-      <div class="col">
-        <h4>What good looks like</h4>
-        <ul>
-          <li><b style="color:#fff">Demo 1 · Japan launch brief</b> — a structured exec brief hitting all five asks (messages, media, athletes, retail, 90-day timeline), localized to Japan. ~80% there; you refine from the framework.</li>
-          <li><b style="color:#fff">Demo 2 · Callaway teardown</b> — a one-page brief that names where TM wins <em>and</em> where we're vulnerable. Half a day of work in ~90 seconds.</li>
-          <li><b style="color:#fff">Demo 3 · M365 sweep</b> — a one-page status across Outlook + Teams + SharePoint: Decisions Made, Open Questions, Next Actions, each traced to a source. (M365 Copilot sees your data natively; in Claude, the Microsoft 365 connector must be signed in.)</li>
-        </ul>
-      </div>
-      <div class="col">
-        <h4>Recovery moves</h4>
-        <ul>
-          <li>The exact prompt is on each demo card — re-paste and keep talking while it runs.</li>
-          <li>Still stuck? Skip to the next hole and circle back if it lands.</li>
-          <li><b style="color:#fff">Contest</b> — if the live board won't refresh, it falls back to the last saved entries on its own; or read submissions on the monday board directly.</li>
-          <li>The round still works without any single demo. Keep the energy up.</li>
-        </ul>
-      </div>
-    </div>
-    <small class="note">This page is for you, the facilitator — attendees only see it if you bring them here. Full run-of-show is in <b class="hl">Run Sheet.html</b>.</small>
-    <div class="btnrow"><button class="lnk back" data-goto="COURSE">← Back to the course</button></div>
+    <div class="btnrow"><button class="btn-primary" data-goto="PRO1">Ready to scale it? Going Pro <span class="ar">▶</span></button></div>
   </div>
 </section>
 
@@ -1187,53 +1106,6 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <div class="strip fadein d2"><div class="st">⛳ The bar</div><p>Before it leaves your hands: <b class="hl">would this run in front of leadership, unedited?</b> If not, take one more swing. Accuracy is the whole game.</p></div>
     <div class="btnrow"><button class="lnk back" data-goto="PRO1">The ladder</button><button class="btn-primary" data-goto="CLUB">To the 19th <span class="ar">▶</span></button></div>
   </div>
-</section>
-
-<!-- ============================================================ SCRAMBLE ============================================================ -->
-<section class="node node--photo" id="SCRAMBLE" data-branch="scramble">
-  <div class="bg ov-86" style="background-image:url('assets/img/di_contest.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">The contest · closest to the pin</div>
-    <h2 class="h">CLOSEST TO THE PIN</h2>
-    <p class="lead" style="margin-top:12px">Three scenarios, no templates. <b class="hl">You write the prompt yourself</b> — your role, your market, your call — using the Pre-Shot Routine and your memory. Pick <b class="hl">one</b>, make it yours, then a 30-second present and the room votes.</p>
-    <div class="cards g3" style="margin-top:16px">
-      <div class="card-i d1 fadein"><div class="tier">Scenario 1 · a plan</div><h4>Masters Monday</h4><p>It's Masters week and <b class="hl">Scottie just put the Qi4D in the bag</b> — biggest stage in golf, our newest driver, the world watching. What does <b class="hl">your</b> market do? Get your AI tool to build the plan.</p>
-      <div class="card-i d2 fadein"><div class="tier">Scenario 2 · an image</div><h4>The Headcover</h4><p>Design a <b class="hl">new headcover</b> to rally behind an upcoming event in your market — then bring it to life in <b class="hl">Gemini Enterprise</b> or <b class="hl">Adobe Firefly</b>.</p></div>
-      <div class="card-i d3 fadein"><div class="tier">Scenario 3 · the real moment</div><h4>Back-to-Back</h4><p>April 2026: <b class="hl">Rory wins the Masters two years running</b> — a TaylorMade Spider on the greens, the world watching TM. How does <b class="hl">your</b> market ride it?</p></div>
-    </div>
-    <div class="two-col fadein d4">
-      <div class="col">
-        <h4>How it plays · ~15 min</h4>
-        <ul>
-          <li><b style="color:#fff">0–10 min</b> — pick a scenario, write your own prompt, iterate once.</li>
-          <li><b style="color:#fff">10 min</b> — screenshot or export your result as an image, then submit it.</li>
-          <li><b style="color:#fff">then</b> — 30-second presents, and the room votes.</li>
-        </ul>
-      </div>
-      <div class="col">
-        <h4>How it's judged</h4>
-        <ul>
-          <li>One vote each — you <b style="color:#fff">can't vote for your own region</b>.</li>
-          <li>The bar: could this go live tomorrow?</li>
-          <li>Most votes wins closest to the pin. Ties play off.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="submitp fadein d4">
-      <span class="qrwrap"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=800x800&amp;margin=10&amp;ecc=H&amp;data=https%3A%2F%2Fforms.monday.com%2Fforms%2Fbb491a7a9729b39e0d3bb91210f5f7ae" alt="Scan to submit your shot"><span class="qrlogo"><img src="assets/logo/metal-t.png" alt=""></span></span>
-      <div class="qrph">forms.monday.com · Closest to the Pin</div>
-      <div>
-        <div class="sp-t">⛳ Scan to drop your shot</div>
-        <div class="sp-d">Scan → pick your scenario, paste your prompt, then <b class="hl">upload your result as an image</b> — screenshot it (Mac ⌘⇧4 · iPhone screenshot · Win ⊞+Shift+S) or export a PNG/JPG. We reveal them on the big board and the room votes. <a class="submit-link" target="_blank" rel="noopener">[set SUBMIT_URL]</a></div>
-      </div>
-    </div>
-    <div class="btnrow"><button class="scorebtn" data-goto="BOARD" style="height:40px">⛳ Open the live board</button><button class="btn-primary" data-goto="CLUB">To the 19th <span class="ar">▶</span></button></div>
-  </div>
-</section>
-
-<!-- ============================================================ LIVE BOARD (embedded — runs inside the deck) ============================================================ -->
-<section class="node" id="BOARD" data-branch="scramble">
-  <iframe class="boardframe" src="Closest to the Pin - Board.html" title="Closest to the Pin — live board"></iframe>
 </section>
 
 <!-- ============================================================ 19TH HOLE ============================================================ -->
@@ -1334,56 +1206,28 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <img class="z-metal" src="assets/logo/metal-t.png" alt="TaylorMade">
     <div class="z-tag">THIS IS THE<br><span style="color:var(--red)">STARTING LINE.</span></div>
     <div class="z-rule"></div>
-    <p class="z-sub">This wasn't a training event. It was the first tee. The teams that adopt AI first will be faster, more consistent, and better equipped to win. Go play your round.</p>
+    <p class="z-sub">This isn't the finish — it's the first tee. The people and teams that adopt AI first will be faster, more consistent, and better equipped to win. Go play your round.</p>
     <div class="z-credit">TAYLORMADE GOLF &nbsp;·&nbsp; AI ENABLEMENT &nbsp;·&nbsp; BUILT BY ALI CHITSAZ · TAYLORMADE IT</div>
     <div class="btnrow" style="justify-content:center"><button class="lnk" data-goto="COURSE">↺ Back to the course</button><button class="lnk" data-home>Start the round over</button></div>
   </div>
 </section>
 
-<div id="lbWrap">
-  <div id="lbPanel">
-    <div class="lb-head">
-      <div class="lb-title"><span class="fl">⛳</span>CLOSEST TO THE PIN</div>
-      <button class="lb-x" id="lbClose" title="Close (Esc)">✕</button>
-    </div>
-    <div class="lb-sub">Most votes wins. Tap <b style="color:var(--red)">＋</b> as hands go up — or click a number to set your form totals. Double-click a name to rename.</div>
-    <div class="submitp">
-      <span class="qrwrap"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=800x800&amp;margin=10&amp;ecc=H&amp;data=https%3A%2F%2Fforms.monday.com%2Fforms%2Fbb491a7a9729b39e0d3bb91210f5f7ae" alt="Scan to submit your shot"><span class="qrlogo"><img src="assets/logo/metal-t.png" alt=""></span></span>
-      <div class="qrph">forms.monday.com · Closest to the Pin</div>
-      <div><div class="sp-t">⛳ Drop your shot</div><div class="sp-d">Scan to open the submission form. <a class="submit-link" target="_blank" rel="noopener">[set SUBMIT_URL]</a></div></div>
-    </div>
-    <div class="lb-rows" id="lbRows"></div>
-    <div class="lb-foot">
-      <button class="lb-mini" id="lbUndo">↺ Undo last</button>
-      <button class="lb-mini" id="lbAddTeam">+ Add region</button>
-      <button class="lb-mini" id="lbReset">Reset votes</button>
-    </div>
-    <div class="lb-note">One vote per person; you can't vote for your own region. The bar is simple — would this post run in your feed, unedited? Names and roster are yours to set on the day.</div>
-  </div>
-</div>
 
 <script>
 (function(){
   "use strict";
-  /* ===== SUBMIT & VOTE — monday forms + a branded big-screen board =====
-     Submit form: forms.monday.com/forms/bb491a7a9729b39e0d3bb91210f5f7ae  (board 18418880107)
-     Vote (live):  ctp-proxy.ali-chitsaz.workers.dev/vote  → records to Votes board 18418881836
-     Big screen:  Closest to the Pin - Board.html  (regenerated from monday at reveal time)
-     SUBMIT_URL = the submit form (QR + scan-to-submit). BOARD_PAGE = the big-screen board. */
-  var SUBMIT_URL = "https://forms.monday.com/forms/bb491a7a9729b39e0d3bb91210f5f7ae";
-  var BOARD_PAGE = "Closest to the Pin - Board.html";
   /* ---------- NODE / BRANCH MODEL ---------- */
   const NODES={};
   document.querySelectorAll('section.node').forEach(n=>NODES[n.id]=n);
   const BRANCHES={
-    tee:     {label:'The Tee',    nodes:['AGENDA','TEE','RULES'],         entry:'AGENDA',  icon:'<path d="M12 3v11"/><path d="M12 4l7 2.5L12 9"/><path d="M7 21h10"/>'},
+    tee:     {label:'The Tee',    nodes:['TEE','AGENDA','RULES'], entry:'TEE',  icon:'<path d="M12 3v11"/><path d="M12 4l7 2.5L12 9"/><path d="M7 21h10"/>'},
     bag:     {label:'The Bag',    nodes:['ACCESS','ANATOMY','CLAUDEUI','COPILOTUI','BAG1','BAG2','BAG3','BAG4'], entry:'ACCESS',    icon:'<path d="M8.5 8h7l1 12h-9z"/><path d="M9.5 8V5.5a2.5 2.5 0 0 1 5 0V8"/><path d="M16.5 11H18v5h-1.5"/>'},
     range:   {label:'The Range',  nodes:['ROUTINE','RANGE'],              entry:'ROUTINE', icon:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>'},
-    course:  {label:'The Course',  nodes:['COURSE','DEMO3'],entry:'COURSE', icon:'<path d="M7 21V4l9 2.6L7 9.5"/><path d="M4 21h9"/>'},
+    course:  {label:'The Course',  nodes:['COURSE'],entry:'COURSE', icon:'<path d="M7 21V4l9 2.6L7 9.5"/><path d="M4 21h9"/>'},
     pro:     {label:'Going Pro',  nodes:['PRO1','PRO2','PRO3','PRO4'],    entry:'PRO1',    icon:'<path d="M4 20l5-6 4 4 7-9"/><path d="M15 9h3v3"/><path d="M4 20h16"/>'},
     club:    {label:'19th Hole',  nodes:['CLUB','FIRST10','CLOSE'], entry:'CLUB',    icon:'<path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M5 4h2M17 4h2M9.5 13h5M12 12v5M9 20h6"/>'}
   };
-  const ORDER=['T','AGENDA','TEE','RULES','ACCESS','ANATOMY','CLAUDEUI','COPILOTUI','BAG1','BAG2','BAG3','BAG4','ROUTINE','RANGE','COURSE','DEMO3','PRO1','PRO2','PRO3','PRO4','CLUB','FIRST10','CLOSE'];
+  const ORDER=['T','TEE','AGENDA','RULES','ACCESS','ANATOMY','CLAUDEUI','COPILOTUI','BAG1','BAG2','BAG3','BAG4','ROUTINE','RANGE','COURSE','PRO1','PRO2','PRO3','PRO4','CLUB','FIRST10','CLOSE'];
   let current=null; const history=[]; const visited=new Set();
 
   /* ---------- branch rail ---------- */
@@ -1395,10 +1239,6 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     rail.appendChild(el);
   });
 
-  function renderSubmit(){
-    if(!SUBMIT_URL) return;
-    document.querySelectorAll('a.submit-link').forEach(function(a){ a.href=SUBMIT_URL; a.textContent=SUBMIT_URL.replace(/^https?:\/\//,''); });
-  }
   // ---- fit any node's content to the 16:9 viewport (no scrolling) ----
   function fitNode(node){
     if(!node) return;
@@ -1421,8 +1261,9 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     node.querySelectorAll('.fn.open').forEach(f=>f.classList.remove('open'));
     node.scrollTop=0; node.classList.add('active'); requestAnimationFrame(function(){fitNode(node);});
     const br=node.dataset.branch; if(BRANCHES[br]) visited.add(br);
-    if(id==='CLUB') renderBigboard();
     if(id==='COURSE') renderDept();
+    if(id==='TEE') renderFitting();
+    if(id==='AGENDA') renderPlan();
     updateChrome();
   }
   function back(){ if(history.length){ go(history.pop(), false); } }
@@ -1496,6 +1337,47 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     }).join('');
   }
   document.addEventListener('click',function(e){ var c=e.target.closest('#deptChips .dchip'); if(c){ DEPT=c.dataset.dept; try{localStorage.setItem('ddi_dept',DEPT);}catch(_){ } renderDept(); } });
+
+  /* ---------- Get Fitted → Your Round (personalized plan) ---------- */
+  var PLAN={focus:'all',level:1};
+  try{ var _sp=JSON.parse(localStorage.getItem('ddi_plan')||'null'); if(_sp&&typeof _sp==='object'){ PLAN.focus=_sp.focus||'all'; PLAN.level=(_sp.level==null?1:_sp.level); } }catch(e){}
+  var FITLEVELS=['New to it','Getting going','Regular','Dialed in'];
+  var FITFOCUS={all:'a bit of everything',claude:'Claude',copilot:'Microsoft Copilot'};
+  function savePlan(){ try{ localStorage.setItem('ddi_plan',JSON.stringify(PLAN)); localStorage.setItem('ddi_dept',DEPT); }catch(e){} }
+  function renderFitting(){
+    var dc=document.getElementById('fitDept');
+    if(dc){ var order=['general','marketing','sales','finance','hr','legal','operations','engineering','product','it'];
+      dc.innerHTML=order.map(function(k){ return '<button class="fitopt'+(k===DEPT?' on':'')+'" data-fit="dept" data-val="'+k+'">'+DEPARTMENTS[k].label+'</button>'; }).join(''); }
+    document.querySelectorAll('#TEE [data-fit="focus"]').forEach(function(b){ b.classList.toggle('on', b.dataset.val===PLAN.focus); });
+    document.querySelectorAll('#TEE [data-fit="level"]').forEach(function(b){ b.classList.toggle('on', +b.dataset.val===PLAN.level); });
+  }
+  function buildPath(){
+    var f=PLAN.focus, lv=PLAN.level, p=['ACCESS'];
+    if(lv<=2) p.push('RULES');
+    if(lv<=2){ if(f==='all') p.push('ANATOMY'); if(f==='all'||f==='claude') p.push('CLAUDEUI'); if(f==='all'||f==='copilot') p.push('COPILOTUI'); if(f==='all') p.push('BAG4'); }
+    if(lv<=1) p.push('BAG1');
+    if(lv<=2 && f!=='copilot') p.push('BAG2');
+    if(lv<=2) p.push('BAG3');
+    if(lv<=2) p.push('ROUTINE');
+    p.push('COURSE');
+    if(lv>=2) p.push('PRO1');
+    p.push('CLUB'); p.push('FIRST10');
+    return p;
+  }
+  function planMeta(id){
+    var dep=(DEPARTMENTS[DEPT]?DEPARTMENTS[DEPT].label:'your team');
+    var M={ACCESS:['Get set up','Where to find your tools, signed in'],RULES:['The local rules','Approved tools only — signed in with SSO'],ANATOMY:['The three platforms','What Claude, Copilot & Gemini each do best'],CLAUDEUI:['Find your way around Claude','Every control that matters'],COPILOTUI:['Find your way around Copilot','Every control that matters'],BAG4:['Which tool, when','The right club for the shot'],BAG1:['The crash course','The four-step loop'],BAG2:['Models & effort','Match the model to the moment'],BAG3:['Memory','Set it once; it remembers you'],ROUTINE:['The Pre-Shot Routine','How to write a great prompt'],COURSE:[dep+' use cases','Copy-paste prompts for your team'],PRO1:['Going Pro','Chat to a system: Project, then Skill'],CLUB:['Sign your scorecard','Takeaways + the Brand Guide skill'],FIRST10:['Your first 10 minutes','The on-ramp for today']};
+    return M[id]||[id,''];
+  }
+  function renderPlan(){
+    var sum=document.getElementById('planSummary'), pathEl=document.getElementById('planPath'); if(!pathEl) return;
+    var dep=(DEPARTMENTS[DEPT]?DEPARTMENTS[DEPT].label:'your team');
+    if(sum) sum.innerHTML='Built for <b class="hl">'+dep+'</b> &middot; <b class="hl">'+(FITFOCUS[PLAN.focus]||'a bit of everything')+'</b> &middot; <b class="hl">'+FITLEVELS[PLAN.level]+'</b>. Here are the holes I’d play, in order — tap any to jump in.';
+    var path=buildPath();
+    pathEl.innerHTML=path.map(function(id,i){ var m=planMeta(id); return '<button class="planrow" data-goto="'+id+'"><span class="pn">'+(i+1)+'</span><span><h4>'+m[0]+'</h4><div class="pw">'+m[1]+'</div></span></button>'; }).join('');
+    var st=document.getElementById('planStart'); if(st) st.setAttribute('data-goto', path[0]||'ACCESS');
+  }
+  document.addEventListener('click',function(e){ var b=e.target.closest('#TEE [data-fit]'); if(!b) return; var ax=b.dataset.fit, v=b.dataset.val; if(ax==='focus') PLAN.focus=v; else if(ax==='level') PLAN.level=+v; else if(ax==='dept') DEPT=v; savePlan(); renderFitting(); });
   /* ---------- THE BAG · "which tool for which shot" picker ---------- */
   var SHOTS={
     write:{t:'Claude',w:'Best writing quality and long output — briefs, reports, articles, full documents.',a:'If it should live in Word, M365 Copilot can draft it in place.'},
@@ -1539,7 +1421,6 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   /* ---------- delegated clicks ---------- */
   document.addEventListener('click',function(e){
     if(e.target.closest('[data-home]')){ reset(); return; }
-    if(e.target.closest('[data-lb]')){ openLB(); return; }
     const cp=e.target.closest('[data-copy]'); if(cp){ doCopy(cp); return; }
     const g=e.target.closest('[data-goto]'); if(g){ go(g.dataset.goto); return; }
     const pb=e.target.closest('#TEE .poll-row'); if(pb){ select(+pb.dataset.poll); return; }
@@ -1555,7 +1436,6 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   /* ---------- keyboard ---------- */
   document.addEventListener('keydown',function(e){
     if(document.activeElement && document.activeElement.isContentEditable) return;
-    if(document.getElementById('lbWrap').classList.contains('show')){ if(e.key==='Escape'||e.key==='l'||e.key==='L'){ closeLB(); } return; }
     if(e.key==='Enter' && current==='T'){ next(); return; }
     if(/^[1-6]$/.test(e.key)){ const btn=NODES[current].querySelector('[data-key="'+e.key+'"]'); if(btn){ btn.click(); e.preventDefault(); return; } }
     if(e.key==='ArrowRight'){ e.preventDefault(); next(); return; }
@@ -1670,57 +1550,6 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   }
   if(track||modelSel) ddRender();
 
-  /* ---------- LEADERBOARD ---------- */
-  let teams=[{name:'Europe',votes:0},{name:'Japan',votes:0},{name:'Korea',votes:0},{name:'Canada',votes:0},{name:'LATAM',votes:0},{name:'Australia',votes:0}];
-  const vHist=[];
-  try{ const s=localStorage.getItem('diMktCTP2'); if(s){ const p=JSON.parse(s); if(Array.isArray(p)&&p.length&&p.every(t=>typeof t.votes==='number')){ teams=p; } } }catch(_){}
-  function saveTeams(){ try{ localStorage.setItem('diMktCTP2',JSON.stringify(teams)); }catch(_){} }
-  function leaderIdx(){ let li=-1,lv=-1; teams.forEach((t,i)=>{ if(t.votes>lv){lv=t.votes;li=i;} }); return (teams.some(t=>t.votes>0))?li:-1; }
-  function vote(idx,d){ teams[idx].votes=Math.max(0,teams[idx].votes+d); if(d!==0) vHist.push({i:idx,d:d}); saveTeams(); renderRows(); renderBigboard(); }
-
-  function renderRows(){
-    const rows=document.getElementById('lbRows'); rows.innerHTML='';
-    const li=leaderIdx();
-    const order=teams.map((t,i)=>i).sort((a,b)=>teams[b].votes-teams[a].votes || a-b);
-    order.forEach((idx,pos)=>{
-      const t=teams[idx];
-      const row=document.createElement('div'); row.className='lb-row'+(idx===li?' lead':'');
-      row.innerHTML='<div class="pos">'+(pos+1)+'</div>'+
-        '<div class="scoreline" style="justify-content:flex-start;gap:8px">'+(idx===li?'<span class="fl">⛳</span>':'')+'<span class="team" data-idx="'+idx+'">'+t.name+'</span></div>'+
-        '<div class="vwrap"><button class="vbtn" data-d="-1">–</button><span class="score '+(t.votes>0?'under':'even')+'" title="Click to set exactly">'+t.votes+'</span><button class="vbtn add" data-d="1">＋</button></div>';
-      const teamEl=row.querySelector('.team');
-      teamEl.addEventListener('dblclick',e=>{ e.stopPropagation(); teamEl.contentEditable=true; teamEl.focus();
-        const r=document.createRange(); r.selectNodeContents(teamEl); const s=window.getSelection(); s.removeAllRanges(); s.addRange(r); });
-      teamEl.addEventListener('blur',()=>{ teamEl.contentEditable=false; const v=teamEl.textContent.trim()||t.name; teams[idx].name=v; saveTeams(); renderRows(); updateLeadChip(); renderBigboard(); });
-      teamEl.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); teamEl.blur(); } });
-      row.querySelectorAll('.vbtn').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); vote(idx,+b.dataset.d); }));
-      row.querySelector('.score').addEventListener('click',e=>{ e.stopPropagation(); const n=prompt('Set votes for '+t.name+':', t.votes); if(n!==null && !isNaN(parseInt(n,10))){ teams[idx].votes=Math.max(0,Math.round(+n)); vHist.push({i:idx,d:0}); saveTeams(); renderRows(); renderBigboard(); } });
-      rows.appendChild(row);
-    });
-    updateLeadChip();
-  }
-  function updateLeadChip(){
-    const li=leaderIdx(); const chip=document.getElementById('leadTeam'); if(!chip) return;
-    chip.textContent = li<0 ? '' : ' · '+teams[li].name.toUpperCase()+' '+teams[li].votes;
-  }
-  function renderBigboard(){
-    const bb=document.getElementById('bigboard'); if(!bb) return; bb.innerHTML='';
-    const li=leaderIdx();
-    const order=teams.map((t,i)=>i).sort((a,b)=>teams[b].votes-teams[a].votes || a-b);
-    order.forEach((idx,pos)=>{ const t=teams[idx];
-      const r=document.createElement('div'); r.className='bb-row'+(idx===li?' lead':'');
-      r.innerHTML='<div class="bb-pos">'+(pos+1)+'</div><div class="bb-team">'+(idx===li?'⛳ ':'')+t.name+'</div><div class="bb-score '+(t.votes>0?'under':'even')+'">'+t.votes+(t.votes===1?' vote':' votes')+'</div>';
-      bb.appendChild(r);
-    });
-  }
-  function openLB(){ document.getElementById('lbWrap').classList.add('show'); renderRows(); }
-  function closeLB(){ document.getElementById('lbWrap').classList.remove('show'); }
-  document.getElementById('lbClose').addEventListener('click',closeLB);
-  document.getElementById('lbWrap').addEventListener('click',e=>{ if(e.target.id==='lbWrap') closeLB(); });
-  document.getElementById('lbUndo').addEventListener('click',()=>{ const h=vHist.pop(); if(h && h.d!==0){ teams[h.i].votes=Math.max(0,teams[h.i].votes-h.d); saveTeams(); renderRows(); renderBigboard(); } });
-  document.getElementById('lbReset').addEventListener('click',()=>{ teams.forEach(t=>t.votes=0); vHist.length=0; saveTeams(); renderRows(); renderBigboard(); });
-  document.getElementById('lbAddTeam').addEventListener('click',()=>{ const n=prompt('Region / team name:'); if(n&&n.trim()){ teams.push({name:n.trim(),votes:0}); saveTeams(); renderRows(); renderBigboard(); } });
-
   /* ---------- Metal-T watermark on solid nodes ---------- */
   document.querySelectorAll('.node:not(.node--photo)').forEach(function(n){
     var w=document.createElement('img'); w.src='assets/logo/metal-t.png'; w.alt=''; w.className='watermark'; w.setAttribute('aria-hidden','true');
@@ -1728,7 +1557,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   });
 
   /* ---------- init ---------- */
-  current='T'; NODES.T.classList.add('active'); updateChrome(); renderPoll(); rangeUpdate(); renderBigboard(); requestAnimationFrame(function(){fitNode(NODES.T);}); renderSubmit();
+  current='T'; NODES.T.classList.add('active'); updateChrome(); renderPoll(); rangeUpdate(); requestAnimationFrame(function(){fitNode(NODES.T);});
 })();
 </script>
 
