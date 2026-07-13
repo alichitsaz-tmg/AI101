@@ -291,7 +291,8 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
 .z-sub{font-size:clamp(15px,1.7vw,20px);color:var(--gD);line-height:1.5;max-width:62ch;margin:0 auto}
 .z-credit{margin-top:30px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 
-/* ===================== LEADERBOARD OVERLAY ===================== */
+[hidden]{display:none!important}
+/* ===================== LEADERBOARD OVERLAY (legacy, unused) ===================== */
 #lbWrap{position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.66); backdrop-filter:blur(3px); padding:24px}
 #lbWrap.show{display:flex}
 #lbPanel{width:min(560px,96vw); max-height:90vh; overflow-y:auto; background:#161616; border:1px solid var(--line-2); border-top:4px solid var(--red); border-radius:5px; padding:26px clamp(18px,3vw,30px) 24px; box-shadow:0 24px 80px rgba(0,0,0,.7)}
@@ -494,21 +495,39 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
 <!-- ============================================================ AGENDA ============================================================ -->
 <section class="node node--photo" id="AGENDA" data-branch="tee">
   <div class="bg ov-prod" style="background-image:url('assets/img/di_agenda.jpg')"></div>
+  <style>
+    #AGENDA .wrap{max-width:1140px}
+    #AGENDA .planbuild{column-count:2;column-gap:15px;margin-top:13px}
+    #AGENDA .psec{break-inside:avoid;display:inline-block;width:100%;margin-bottom:11px;background:rgba(18,18,18,.6);border:1px solid var(--line);border-radius:6px;padding:11px 13px 8px}
+    #AGENDA .psec-h{display:flex;align-items:baseline;gap:9px;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+    #AGENDA .psec-h .pn{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#fff}
+    #AGENDA .psec-h .pt{font-size:10px;color:var(--dim);letter-spacing:.02em}
+    #AGENDA .psec-h .pc{margin-left:auto;font-size:10px;font-weight:800;color:var(--red);font-family:var(--mono)}
+    #AGENDA .ptopic{display:flex;align-items:flex-start;gap:9px;width:100%;text-align:left;font-family:inherit;color:inherit;background:transparent;border:1px solid transparent;border-radius:5px;padding:5px 6px;cursor:pointer;transition:.16s}
+    #AGENDA .ptopic:hover{background:rgba(255,255,255,.045)}
+    #AGENDA .ptopic .tk{flex:0 0 auto;width:17px;height:17px;border-radius:4px;border:1.5px solid #555;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;color:transparent;margin-top:1px;transition:.16s}
+    #AGENDA .ptopic.on .tk{background:var(--red);border-color:var(--red);color:#fff}
+    #AGENDA .ptopic b{font-size:12.5px;font-weight:700;display:block;line-height:1.18}
+    #AGENDA .ptopic small{font-size:10.5px;color:var(--dim);display:block;margin-top:1px;line-height:1.22}
+    #AGENDA .ptopic.off b{color:#9a9a9a}
+    #AGENDA .ptopic.off small{color:#6f6f6f}
+    #AGENDA .ptopic.locked{cursor:default}
+    #AGENDA .ptopic .lk{font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin-left:6px;vertical-align:middle}
+    #AGENDA .planbar{display:flex;align-items:center;gap:16px;margin-top:6px;flex-wrap:wrap}
+    #AGENDA .plancount{font-size:12px;color:var(--dim);font-weight:600}
+    @media(max-width:820px){#AGENDA .planbuild{column-count:1}}
+  </style>
   <div class="wrap">
     <div class="eyebrow">Your round · built from your fitting</div>
-    <h2 class="h">YOUR ROUND</h2>
-    <p class="lead" id="planSummary" style="margin-top:12px">Here's your round.</p>
-    <style>
-      #AGENDA .planlist{display:flex;flex-direction:column;gap:8px;margin-top:16px}
-      #AGENDA .planrow{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:4px;padding:11px 16px;cursor:pointer;transition:.25s var(--ease);text-align:left;width:100%;font-family:inherit;color:inherit}
-      #AGENDA .planrow:hover{border-color:var(--red);transform:translateX(4px)}
-      #AGENDA .planrow .pn{flex:0 0 auto;width:23px;height:23px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
-      #AGENDA .planrow h4{font-size:14.5px;font-weight:800;margin:0;text-transform:uppercase;letter-spacing:.01em}
-      #AGENDA .planrow .pw{font-size:12px;color:var(--dim);margin-top:1px}
-    </style>
-    <div class="planlist" id="planPath"></div>
-    <div class="btnrow" style="margin-top:18px"><button class="btn-primary" id="planStart" data-goto="ACCESS">Start my round <span class="ar">▶</span></button><button class="lnk" data-goto="TEE">Re-fit →</button></div>
-    <small class="note" style="margin-top:12px">Want the full tour? Every station is on the <b class="hl">rail up top</b> — play any hole, any time.</small>
+    <h2 class="h">BUILD YOUR ROUND</h2>
+    <p class="lead" id="planSummary" style="margin-top:9px">Here's your round.</p>
+    <div class="planbuild" id="planBuild"></div>
+    <div class="planbar">
+      <button class="btn-primary" id="planStart" data-goto="ACCESS">Start my round <span class="ar">▶</span></button>
+      <span class="plancount" id="planCount"></span>
+      <button class="lnk" data-goto="TEE">↺ Re-fit</button>
+    </div>
+    <small class="note" style="margin-top:9px">Everything's here — <b class="hl">tap any topic to add or remove it</b>. Nothing's hidden, so you never miss out. Your team's plays stay in. Jump to any station anytime from the <b class="hl">rail up top</b>.</small>
   </div>
 </section>
 
@@ -519,7 +538,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="eyebrow">The Tee · get fitted</div>
     <h2 class="h">GET FITTED</h2>
-    <p class="lead" style="margin-top:12px">Before you play, get fitted. <span class="hl">Three quick taps</span> and I'll build your round — the right tools, your team's real work, at your pace. <span style="color:var(--dim)">It's just for you, and you can change it anytime.</span></p>
+    <p class="lead" style="margin-top:12px">Before you play, get fitted. <span class="hl">Three quick taps</span> and I'll recommend a round — the right tools, your team's real work, at your pace. <span style="color:var(--dim)">Then you'll see every topic laid out by section — add or remove anything. It's just for you, and you can change it anytime.</span></p>
     <style>
       #TEE .fitq{margin-top:20px}
       #TEE .fitl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:800;margin-bottom:9px}
@@ -565,15 +584,15 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <p class="lead" style="margin-top:14px">Every course has local rules. Ours come down to one: <b class="hl">use only the five approved tools, always signed in with your @taylormadegolf.com account.</b> That switches on enterprise data protection, and <b class="hl">your data is never used to train the AI</b>. If a tool isn't on the approved list, it's out of bounds — no exceptions.</p>
     <div class="localrules">
       <div class="lr ok fadein d1">
-        <div class="lr-h"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--red);fill:none;stroke-width:2"><path d="M5 13l4 4L19 7"/></svg>In play · the five approved tools</div>
+        <div class="lr-h"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--red);fill:none;stroke-width:2"><path d="M5 13l4 4L19 7"/></svg>In play · your approved tools</div>
         <div class="lr-list">
           <div class="lr-item"><span class="mk">✓</span>Claude <span style="color:var(--dim);font-weight:400">· think, write, analyze · by request</span></div>
           <div class="lr-item"><span class="mk">✓</span>Microsoft Copilot Chat <span style="color:var(--dim);font-weight:400">· free for everyone</span></div>
           <div class="lr-item"><span class="mk">✓</span>Microsoft 365 Copilot <span style="color:var(--dim);font-weight:400">· inside Office · by request</span></div>
-          <div class="lr-item"><span class="mk">✓</span>Gemini Enterprise <span style="color:var(--dim);font-weight:400">· image, video &amp; research · by request</span></div>
-          <div class="lr-item"><span class="mk">✓</span>Adobe Firefly <span style="color:var(--dim);font-weight:400">· creative studio · with Adobe</span></div>
+          <div class="lr-item media-gate" hidden><span class="mk">✓</span>Gemini Enterprise <span style="color:var(--dim);font-weight:400">· image, video &amp; research · by request</span></div>
+          <div class="lr-item media-gate" hidden><span class="mk">✓</span>Adobe Firefly <span style="color:var(--dim);font-weight:400">· creative studio · with Adobe</span></div>
         </div>
-        <p style="font-size:12px;color:var(--dim);margin-top:14px;line-height:1.5">Signed in with your TaylorMade account, these are cleared for real work — live launches included. Copilot Chat and Firefly are included; Claude, M365 Copilot, and Gemini are by request. IT maintains the list; it can grow over time.</p>
+        <p style="font-size:12px;color:var(--dim);margin-top:14px;line-height:1.5">Signed in with your TaylorMade account, these are cleared for real work — live launches included. <b>Copilot Chat</b> is free for everyone; <b>Claude</b> and <b>M365 Copilot</b> are by request.<span class="media-gate" hidden> <b>Gemini</b> and <b>Firefly</b> are available by request too.</span> IT maintains the list; it can grow over time.</p>
       </div>
       <div class="lr no fadein d2">
         <div class="lr-h"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--gA);fill:none;stroke-width:2"><path d="M6 6l12 12M18 6L6 18"/></svg>Everything else · out of bounds</div>
@@ -596,14 +615,14 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <div class="eyebrow">The Bag · get set up · approved &amp; signed in</div>
     <h2 class="h">TEE IT UP ANYWHERE</h2>
     <p class="lead" style="margin-top:12px">One account, every tool. Sign in with your <b class="hl">@taylormadegolf.com account</b> and enterprise data protection switches on — your work stays inside TaylorMade and is never used to train a model. Here's where to find each club.</p>
-    <div class="cards g3" style="margin-top:14px">
+    <div class="cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px">
       <div class="card-i d1 fadein"><div class="tier">by request · Catalog #575</div><h4>Claude</h4><p><b class="hl">claude.ai</b> + desktop app (Mac &amp; Windows) + mobile (iOS &amp; Android). One sign-in; your chats, memory, and projects follow you everywhere.</p></div>
       <div class="card-i d2 fadein"><div class="tier">Chat free · M365 by request</div><h4>Microsoft Copilot</h4><p><b class="hl">copilot.microsoft.com</b> for Copilot Chat (free for everyone) — or <b class="hl">M365 Copilot</b> right inside Outlook, Word, Excel, PowerPoint &amp; Teams.</p></div>
-      <div class="card-i d3 fadein"><div class="tier">by request · Catalog #588</div><h4>Gemini Enterprise</h4><p>Open the <b class="hl">TaylorMade Gemini portal</b> — a secure Vertex AI workspace, not the consumer app. Images, video, Deep Research &amp; Google in one place.</p></div>
+      <div class="card-i d3 fadein media-gate" hidden><div class="tier">by request · Catalog #588</div><h4>Gemini Enterprise</h4><p>Open the <b class="hl">TaylorMade Gemini portal</b> — a secure Vertex AI workspace, not the consumer app. Images, video, Deep Research &amp; Google in one place.</p></div>
     </div>
-    <div class="strip fadein d3" style="margin-top:18px"><div class="st">Also in the bag</div><p><b class="hl">Adobe Firefly</b> (firefly.adobe.com, included with your TaylorMade Adobe account) is the creative studio for image &amp; video work. And Claude reaches beyond the chat window — <b>Cowork</b> (desktop agent), <b>Claude in Chrome</b>, and <b>Claude in Excel &amp; PowerPoint</b> — all signed in, some by separate approval.</p></div>
+    <div class="strip fadein d3" style="margin-top:18px"><div class="st">Also in the bag</div><p>Claude reaches beyond the chat window — <b>Cowork</b> (desktop agent), <b>Claude in Chrome</b>, and <b>Claude in Excel &amp; PowerPoint</b> — all signed in, some by separate approval.<span class="media-gate" hidden> For image &amp; video work, TaylorMade also provides <b class="hl">Gemini Enterprise</b> (the secure Vertex AI portal) and <b class="hl">Adobe Firefly</b> (firefly.adobe.com, with your Adobe account).</span></p></div>
     <small class="note">Always sign in with your TaylorMade account so protection is active — personal accounts aren't allowed for work. Licensed tools require manager approval. Full list, access links &amp; the AI policy → <b class="hl">aiuseguide.tmgolf.biz</b></small>
-    <div class="btnrow"><button class="btn-primary" data-goto="ANATOMY">Meet the three platforms <span class="ar">▶</span></button></div>
+    <div class="btnrow"><button class="btn-primary" data-goto="ANATOMY">Get to know your bag <span class="ar">▶</span></button></div>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://aiuseguide.tmgolf.biz/" target="_blank" rel="noopener">TaylorMade AI Tools Guide <span class="dom">aiuseguide.tmgolf.biz</span></a><a class="src" href="https://tmgolf.freshservice.com" target="_blank" rel="noopener">Request access · IT Portal <span class="dom">freshservice.com</span></a></div></div>
   </div>
 </section>
@@ -657,7 +676,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
         <div class="pmeta">CLAUDE (OPUS) + GPT-5.5 · WORK IQ<br>copilot.microsoft.com · M365 Copilot in your Office apps</div>
       </div>
     </div>
-    <div class="strip fadein d3" style="margin-top:18px"><div class="st">Also in the bag</div><p>When the shot is <b class="hl">visual</b> — images or video — reach for <b>Gemini Enterprise</b> (Nano Banana Pro, Veo 3.1) or <b>Adobe Firefly</b>. For quick everyday questions there's <b>Copilot Chat</b>, free for everyone. And the lanes overlap on purpose — <b class="hl">Copilot can even run Claude Opus</b> — so don't overthink it: grab the club that fits the shot.</p></div>
+    <div class="strip fadein d3" style="margin-top:18px"><div class="st">Also in the bag</div><p><span class="media-gate" hidden>When the shot is <b class="hl">visual</b> — images or video — reach for <b>Gemini Enterprise</b> (Nano Banana Pro, Veo 3.1) or <b>Adobe Firefly</b>. </span>For quick everyday questions there's <b>Copilot Chat</b>, free for everyone. And the lanes overlap on purpose — <b class="hl">Copilot can even run Claude Opus</b> — so don't overthink it: grab the club that fits the shot.</p></div>
     <div class="btnrow"><button class="btn-primary" data-goto="CLAUDEUI">Find your way around Claude <span class="ar">▶</span></button><button class="lnk" data-goto="BAG1">The crash course →</button><button class="lnk" data-goto="BAG4">"Which tool, when" →</button></div>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://aiuseguide.tmgolf.biz/" target="_blank" rel="noopener">TaylorMade AI Tools Guide <span class="dom">aiuseguide.tmgolf.biz</span></a></div></div>
   </div>
@@ -865,7 +884,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="eyebrow">The Bag · match the model to the moment</div>
     <h2 class="h">MODELS &amp; EFFORT</h2>
-    <p class="lead" style="margin-top:12px">Every platform lets you choose how it works — Claude makes it clearest with <b class="hl">three Claudes in one picker</b>, same brain, tuned for different moments. <b class="hl">Sonnet 4.6</b> is the everyday default and right for almost everything. <span style="color:var(--dim)">(Copilot and Gemini have their own pickers — see below.)</span></p>
+    <p class="lead" style="margin-top:12px">Every platform lets you choose how it works — Claude makes it clearest with <b class="hl">three Claudes in one picker</b>, same brain, tuned for different moments. <b class="hl">Sonnet 4.6</b> is the everyday default and right for almost everything. <span style="color:var(--dim)">(Copilot has its own picker<span class="media-gate" hidden>, and so does Gemini</span> — see below.)</span></p>
     <div class="cards g3" style="margin-top:14px">
       <div class="card-i d1 fadein"><div class="tier">the high-stakes moments</div><h4>Opus 4.8</h4><p>The heavy lift — reach for it when it has to be exactly right: the board-ready analysis, the call you can't get wrong.</p></div>
       <div class="card-i d2 fadein"><div class="tier">everyday · your default</div><h4>Sonnet 4.6</h4><p>Your everyday partner — fast, sharp, right for almost everything. Already selected for you.</p></div>
@@ -903,7 +922,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     </div>
     <div class="two-col fadein d3" style="margin-top:20px">
       <div class="col"><h4>Microsoft Copilot · pick the engine</h4><ul><li><b style="color:#fff">Auto</b> decides how long to think; <b style="color:#fff">Quick Response</b> answers right away; <b style="color:#fff">Think Deeper</b> reasons longer.</li><li>Or switch the underlying model to <b style="color:#fff">Claude Opus</b> or <b style="color:#fff">GPT</b>.</li></ul></div>
-      <div class="col"><h4>Gemini Enterprise · one strong model</h4><ul><li>Runs on <b style="color:#fff">Gemini 3.1 Pro</b> today; the newer <b style="color:#fff">3.5</b> generation is rolling out.</li><li>Switch on <b style="color:#fff">Deep Research</b> or an agent when the task calls for it.</li></ul></div>
+      <div class="col media-gate" hidden><h4>Gemini Enterprise · one strong model</h4><ul><li>Runs on <b style="color:#fff">Gemini 3.1 Pro</b> today; the newer <b style="color:#fff">3.5</b> generation is rolling out.</li><li>Switch on <b style="color:#fff">Deep Research</b> or an agent when the task calls for it.</li></ul></div>
     </div>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://aiuseguide.tmgolf.biz/" target="_blank" rel="noopener">Working Smart · AI Tools Guide <span class="dom">aiuseguide.tmgolf.biz</span></a><a class="src" href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">The models <span class="dom">platform.claude.com</span></a></div></div>
   </div>
@@ -915,7 +934,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   <div class="wrap">
     <div class="eyebrow">The Bag · set up your caddie</div>
     <h2 class="h">YOUR CADDIE KNOWS YOUR GAME</h2>
-    <p class="lead" style="margin-top:12px">A great caddie remembers your game — your tendencies, your distances — so you never re-explain yourself on the next hole. <b class="hl">Memory</b> is your caddie. Have <b class="hl">one conversation</b> to set it up and every future chat already knows who you are and what you're focused on. <span style="color:var(--dim)">Claude (per-project + across chats) and Copilot both remember; Gemini's is lighter today.</span></p>
+    <p class="lead" style="margin-top:12px">A great caddie remembers your game — your tendencies, your distances — so you never re-explain yourself on the next hole. <b class="hl">Memory</b> is your caddie. Have <b class="hl">one conversation</b> to set it up and every future chat already knows who you are and what you're focused on. <span style="color:var(--dim)">Claude (per-project + across chats) and Copilot both remember.<span class="media-gate" hidden> Gemini's is lighter today.</span></span></p>
     <div class="prompt fadein d1"><button class="copybtn" data-copy>⧉ Copy</button><span class="pm">The memory setup conversation — copy, edit, send once</span><span class="ptxt">Please remember this about me for future chats: I'm [NAME], [ROLE] on the [TEAM / DEPARTMENT] at TaylorMade. I focus on [what you own — projects, areas, stakeholders]. My tone should be [clear, concise, professional]. When I ask for work, default to my context, match that tone, and flag where you need a specific detail from me. Tell me what you've saved.</span></div>
     <div class="two-col fadein d2">
       <div class="col"><h4>What to put in memory</h4><ul><li>Who you are and your team.</li><li>What you own — projects, areas, stakeholders.</li><li>Your tone and any always-rules.</li><li>Formats you ask for often — briefs, reports, recaps.</li></ul></div>
@@ -956,8 +975,8 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
       <button class="shotchip" data-shot="auto">Automate or code</button>
     </div>
     <div class="shotres" id="shotResult"><p class="shothint">Pick a shot above and the recommended club appears here. <span style="color:var(--dim-2)">The lanes overlap on purpose — these are the defaults, not hard rules.</span></p></div>
-    <div class="strip fadein d2" style="margin-top:18px"><div class="st">A word on connectors</div><p>Connectors plug a tool into your real files — and you only ever see what you already have access to. <b class="hl">Claude</b> uses approved connectors (Microsoft 365, Box, ClickUp, Jira, GitHub…); <b class="hl">M365 Copilot</b> reads your Microsoft 365 natively; <b class="hl">Gemini Enterprise</b> adds federated connectors to OneDrive, Outlook &amp; SharePoint.</p></div>
-    <small class="note">For visuals, reach for <b style="color:var(--g7)">Gemini Enterprise</b> (Nano Banana Pro images, Veo 3.1 video) or <b style="color:var(--g7)">Adobe Firefly</b> (edit, expand, video, 30+ models, commercially safe). All approved, all signed in with your TaylorMade account.</small>
+    <div class="strip fadein d2" style="margin-top:18px"><div class="st">A word on connectors</div><p>Connectors plug a tool into your real files — and you only ever see what you already have access to. <b class="hl">Claude</b> uses approved connectors (Microsoft 365, Box, ClickUp, Jira, GitHub…); <b class="hl">M365 Copilot</b> reads your Microsoft 365 natively<span class="media-gate" hidden>; <b class="hl">Gemini Enterprise</b> adds federated connectors to OneDrive, Outlook &amp; SharePoint</span>.</p></div>
+    <small class="note media-gate" hidden>For visuals, reach for <b style="color:var(--g7)">Gemini Enterprise</b> (Nano Banana Pro images, Veo 3.1 video) or <b style="color:var(--g7)">Adobe Firefly</b> (edit, expand, video, 30+ models, commercially safe). All approved, all signed in with your TaylorMade account.</small>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://aiuseguide.tmgolf.biz/" target="_blank" rel="noopener">Which Tool to Use · AI Tools Guide <span class="dom">aiuseguide.tmgolf.biz</span></a></div></div>
   </div>
 </section>
@@ -1046,7 +1065,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
       <div class="card-i d2 fadein"><div class="tier">Rung 2 · when a topic keeps coming back</div><h4>A Project</h4><p>A workspace with <b class="hl">standing instructions + your files</b>, so every chat inside it already knows the context. New Project → paste your instructions → drop in your files. Two minutes. <span style="color:var(--dim)">A recurring project runs this way — a "read-this-first" instructions file with the key documents right beside it, so every chat starts in context.</span></p></div>
       <div class="card-i d3 fadein"><div class="tier">Rung 3 · when a task repeats the same way</div><h4>A Skill</h4><p>Package the how-to once and Claude runs it on command — <b class="hl">in any chat, not just one project</b> — and you can hand it to the whole team. <span style="color:var(--dim)">That weekly report you rebuild by hand becomes exactly this: a skill Claude runs on command, that you hand to the whole team.</span></p></div>
     </div>
-    <div class="strip fadein d2" style="margin-top:16px"><div class="st">Every platform has its own version of "rung 3"</div><p>The ladder is clearest in <b class="hl">Claude</b> (Projects + Skills), but each tool has its own repeatable layer: <b class="hl">Copilot</b> has agents — Researcher, Analyst, PowerPoint — and <b class="hl">Gemini Enterprise</b> has NotebookLM, Deep Research &amp; Idea Generation. Build the repeatable thing once; hand it to the team.</p></div>
+    <div class="strip fadein d2" style="margin-top:16px"><div class="st">Every platform has its own version of "rung 3"</div><p>The ladder is clearest in <b class="hl">Claude</b> (Projects + Skills), but each tool has its own repeatable layer: <b class="hl">Copilot</b> has agents — Researcher, Analyst, PowerPoint<span class="media-gate" hidden> — and <b class="hl">Gemini Enterprise</b> has NotebookLM, Deep Research &amp; Idea Generation</span>. Build the repeatable thing once; hand it to the team.</p></div>
     <p class="lead" style="margin-top:20px;font-size:15px">Three ways to make the climb pay off. <span style="color:var(--dim)">Tap to go deeper — or press 1–3.</span></p>
     <div class="choices g3" style="margin-top:12px">
       <button class="choice mini" data-goto="PRO2" data-key="1"><span class="num">1</span><h4>Feed it your assets</h4></button>
@@ -1082,10 +1101,10 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <h2 class="h">DESIGN THAT LOOKS LIKE US</h2>
     <p class="lead" style="margin-top:12px">Hand <b class="hl">Claude Design</b> your <b class="hl">.md brief</b> and it turns it into polished visuals — decks, one-pagers, mockups — exporting to PowerPoint, PDF, or Canva for the team to finish. You bring the scope; it brings the craft.</p>
     <div class="two-col fadein d1" style="margin-top:14px">
-      <div class="col"><h4>On-brand, automatically</h4><ul><li>Brand isn't a guess — the <b class="hl">TaylorMade brand-guide skill</b> already holds our voice, colors, type, and logo rules, so design starts on-brand, not generic.</li><li>Comment on any element, nudge spacing or color, and it applies the fix across the whole piece.</li><li>For photoreal product imagery, still reach for <b style="color:#fff">Gemini Enterprise or Adobe Firefly</b> — those generate images; Claude Design lays out the design.</li></ul></div>
+      <div class="col"><h4>On-brand, automatically</h4><ul><li>Brand isn't a guess — the <b class="hl">TaylorMade brand-guide skill</b> already holds our voice, colors, type, and logo rules, so design starts on-brand, not generic.</li><li>Comment on any element, nudge spacing or color, and it applies the fix across the whole piece.</li><li class="media-gate" hidden>For photoreal product imagery, still reach for <b style="color:#fff">Gemini Enterprise or Adobe Firefly</b> — those generate images; Claude Design lays out the design.</li></ul></div>
       <div class="col"><h4>Build once, share with the team</h4><ul><li>A strong prompt, project, or design system is worth far more shared than hoarded.</li><li>Package the repeatable ones as <b class="hl">skills</b> — the brand guide itself can be a skill every region runs.</li><li>The multiplier: <b class="hl">one person builds it, the whole team plays better.</b></li></ul></div>
     </div>
-    <small class="note">Claude Design is in <b>beta</b> (Pro · Max · Team · Enterprise) and <b>default-off for Enterprise</b> — IT flips it on, then sets up our design system once so everything inherits TaylorMade's colors, type, and components. For finished, photoreal imagery, the approved tools stay <b>Gemini Enterprise &amp; Adobe Firefly</b>.</small>
+    <small class="note">Claude Design is in <b>beta</b> (Pro · Max · Team · Enterprise) and <b>default-off for Enterprise</b> — IT flips it on, then sets up our design system once so everything inherits TaylorMade's colors, type, and components.<span class="media-gate" hidden> For finished, photoreal imagery, the approved tools stay <b>Gemini Enterprise</b> &amp; <b>Adobe Firefly</b>.</span></small>
     <div class="btnrow"><button class="lnk back" data-goto="PRO2">Back</button><button class="btn-primary" data-goto="PRO4">Trust, but verify <span class="ar">▶</span></button></div>
     <div class="sources"><div class="sh"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Verified · go deeper</div><div class="srcgrid"><a class="src" href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener">Claude Design <span class="dom">anthropic.com</span></a><a class="src" href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design" target="_blank" rel="noopener">Get started <span class="dom">support.claude.com</span></a></div></div>
   </div>
@@ -1174,7 +1193,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     <p class="lead" style="margin-top:10px">Don't let today fade. This is the on-ramp — ten minutes, this week, and you've shipped one real thing.</p>
     <div class="f10">
       <div class="steps">
-        <div class="step"><div class="mn">0–2 min</div><div><h4>Open &amp; sign in</h4><p>claude.ai, copilot.microsoft.com, or the Gemini portal → your TaylorMade account.</p></div></div>
+        <div class="step"><div class="mn">0–2 min</div><div><h4>Open &amp; sign in</h4><p>claude.ai or copilot.microsoft.com<span class="media-gate" hidden>, or the Gemini portal</span> → your TaylorMade account.</p></div></div>
         <div class="step"><div class="mn">2–4 min</div><div><h4>Set your memory</h4><p>Paste the five-minute setup so your tool knows your role, region, and voice.</p></div></div>
         <div class="step"><div class="mn">4–6 min</div><div><h4>Claude? Switch on the skill</h4><p>Customize → enable <b class="hl" style="color:#fff">/taylormade-brand-guide</b> — the brand, ready in any chat.</p></div></div>
         <div class="step"><div class="mn">6–10 min</div><div><h4>Run one real task</h4><p>Pick live work — a recap, a brief, a competitive scan — and run the Pre-Shot Routine. Take one mulligan.</p></div></div>
@@ -1187,7 +1206,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
             <div class="hb-grid">
               <div class="qa"><div class="k">Claude AI</div><div class="v">claude.ai</div></div>
               <div class="qa"><div class="k">Microsoft Copilot</div><div class="v">copilot.microsoft.com</div></div>
-              <div class="qa"><div class="k">Gemini Enterprise</div><div class="v">TaylorMade portal</div></div>
+              <div class="qa media-gate" hidden><div class="k">Gemini Enterprise</div><div class="v">TaylorMade portal</div></div>
               <div class="qa"><div class="k">IT &amp; requests</div><div class="v">tmgolf.freshservice.com</div></div>
             </div>
             <span class="hb-link">Open the AI Tools Guide →</span>
@@ -1336,7 +1355,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
       return '<div class="card-i fadein"><h4>'+hole.h+'</h4><ul class="ex">'+lis+'</ul></div>';
     }).join('');
   }
-  document.addEventListener('click',function(e){ var c=e.target.closest('#deptChips .dchip'); if(c){ DEPT=c.dataset.dept; try{localStorage.setItem('ddi_dept',DEPT);}catch(_){ } renderDept(); } });
+  document.addEventListener('click',function(e){ var c=e.target.closest('#deptChips .dchip'); if(c){ DEPT=c.dataset.dept; try{localStorage.setItem('ddi_dept',DEPT);}catch(_){ } renderDept(); applyGate(); } });
 
   /* ---------- Get Fitted → Your Round (personalized plan) ---------- */
   var PLAN={focus:'all',level:1};
@@ -1351,33 +1370,99 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     document.querySelectorAll('#TEE [data-fit="focus"]').forEach(function(b){ b.classList.toggle('on', b.dataset.val===PLAN.focus); });
     document.querySelectorAll('#TEE [data-fit="level"]').forEach(function(b){ b.classList.toggle('on', +b.dataset.val===PLAN.level); });
   }
-  function buildPath(){
-    var f=PLAN.focus, lv=PLAN.level, p=['ACCESS'];
-    if(lv<=2) p.push('RULES');
-    if(lv<=2){ if(f==='all') p.push('ANATOMY'); if(f==='all'||f==='claude') p.push('CLAUDEUI'); if(f==='all'||f==='copilot') p.push('COPILOTUI'); if(f==='all') p.push('BAG4'); }
-    if(lv<=1) p.push('BAG1');
-    if(lv<=2 && f!=='copilot') p.push('BAG2');
-    if(lv<=2) p.push('BAG3');
-    if(lv<=2) p.push('ROUTINE');
-    p.push('COURSE');
-    if(lv>=2) p.push('PRO1');
-    p.push('CLUB'); p.push('FIRST10');
-    return p;
+  /* ---- the 6 sections and their underlying topics (drives the agenda builder) ---- */
+  var SECTIONS=[
+    {label:'The Tee',   tag:'Set the ground rules', topics:[
+      {id:'RULES',   name:'Local rules',            why:"What's safe to paste, and what isn't."}
+    ]},
+    {label:'The Bag',   tag:'Meet your tools', topics:[
+      {id:'ACCESS',  name:'How to get in',          why:'Where to sign in, on every device.'},
+      {id:'ANATOMY', name:'Know your bag',          why:'Claude vs Copilot — what each is for.'},
+      {id:'CLAUDEUI',name:'Around Claude',          why:'Every control in the Claude window.'},
+      {id:'COPILOTUI',name:'Around Copilot',        why:'Every control in Microsoft Copilot.'},
+      {id:'BAG1',    name:'The 4-step flow',        why:'The core loop: bring in, ask, save, polish.'},
+      {id:'BAG2',    name:'Models & effort',        why:'Match the model to the moment.'},
+      {id:'BAG3',    name:'Memory',                 why:'Set it once; it remembers your role & voice.'},
+      {id:'BAG4',    name:'Which tool, when',       why:'Match the task to the right tool.'}
+    ]},
+    {label:'The Range', tag:'Prompt like a pro', topics:[
+      {id:'ROUTINE', name:'The Pre-Shot Routine',   why:'Five parts that make any prompt land.'},
+      {id:'RANGE',   name:'Warm up',                why:'Watch the routine change the output.'}
+    ]},
+    {label:'The Course',tag:'Your real work', topics:[
+      {id:'COURSE',  name:'Your plays',             why:"Copy-paste prompts for your team's real work.", locked:true}
+    ]},
+    {label:'Going Pro', tag:'Scale it up', topics:[
+      {id:'PRO1',    name:'Chat → Project → Skill', why:'Turn a one-off into a repeatable system.'},
+      {id:'PRO2',    name:'Feed it your assets',    why:'Bring your real files and docs in.'},
+      {id:'PRO3',    name:'On-brand design',        why:'Make it look like TaylorMade.'},
+      {id:'PRO4',    name:'Trust, but verify',      why:'Check the work before it ships.'}
+    ]},
+    {label:'The 19th',  tag:'Make it stick', topics:[
+      {id:'CLUB',    name:'Lead by example',        why:'The habit that compounds — one task, one week.'},
+      {id:'FIRST10', name:'Your first 10 minutes',  why:'The 10-minute on-ramp you run this week.'}
+    ]}
+  ];
+  var TOPIC_IDS={}; SECTIONS.forEach(function(s){ s.topics.forEach(function(t){ TOPIC_IDS[t.id]=1; }); });
+
+  /* ---- media-centric departments get Gemini / Firefly; everyone else sees Claude + Copilot ---- */
+  var MEDIA_DEPTS={product:1, engineering:1, marketing:1};
+  function isMediaDept(){ return !!MEDIA_DEPTS[DEPT]; }
+  function applyGate(){ var on=isMediaDept(); document.querySelectorAll('.media-gate').forEach(function(el){ el.hidden=!on; }); }
+
+  /* ---- which topics the fitting pre-checks (balanced per level; everything stays editable) ---- */
+  function computeDefaults(){
+    var lv=PLAN.level, f=PLAN.focus, on={};
+    function set(id){ on[id]=true; }
+    set('COURSE'); set('FIRST10');           // always
+    if(lv<=0){                               // New to it — the full tour
+      set('RULES'); set('ACCESS'); set('ANATOMY');
+      if(f!=='copilot') set('CLAUDEUI'); if(f!=='claude') set('COPILOTUI');
+      set('BAG1'); set('BAG3'); set('ROUTINE'); set('RANGE'); set('CLUB');
+    } else if(lv===1){                       // Getting going — the essentials
+      set('ANATOMY');
+      if(f!=='copilot') set('CLAUDEUI'); if(f!=='claude') set('COPILOTUI');
+      set('BAG2'); set('BAG3'); set('ROUTINE'); set('CLUB');
+    } else if(lv===2){                       // Regular — sharpen + first pro step
+      if(f==='all') set('BAG4');
+      set('BAG3'); set('ROUTINE'); set('PRO1'); set('PRO4');
+    } else {                                 // Dialed in — the pro track
+      set('PRO1'); set('PRO2'); set('PRO3'); set('PRO4');
+    }
+    return on;
   }
-  function planMeta(id){
-    var dep=(DEPARTMENTS[DEPT]?DEPARTMENTS[DEPT].label:'your team');
-    var M={ACCESS:['Get set up','Where to find your tools, signed in'],RULES:['The local rules','Approved tools only — signed in with SSO'],ANATOMY:['The three platforms','What Claude, Copilot & Gemini each do best'],CLAUDEUI:['Find your way around Claude','Every control that matters'],COPILOTUI:['Find your way around Copilot','Every control that matters'],BAG4:['Which tool, when','The right club for the shot'],BAG1:['The crash course','The four-step loop'],BAG2:['Models & effort','Match the model to the moment'],BAG3:['Memory','Set it once; it remembers you'],ROUTINE:['The Pre-Shot Routine','How to write a great prompt'],COURSE:[dep+' use cases','Copy-paste prompts for your team'],PRO1:['Going Pro','Chat to a system: Project, then Skill'],CLUB:['Sign your scorecard','Takeaways + the Brand Guide skill'],FIRST10:['Your first 10 minutes','The on-ramp for today']};
-    return M[id]||[id,''];
+  var SEL={};
+  try{ var _ss=JSON.parse(localStorage.getItem('ddi_sel')||'null'); if(_ss&&typeof _ss==='object'&&Object.keys(_ss).length) SEL=_ss; }catch(e){}
+  if(!Object.keys(SEL).length) SEL=computeDefaults();
+  function saveSel(){ try{ localStorage.setItem('ddi_sel',JSON.stringify(SEL)); }catch(e){} }
+  function isOn(id){ return id==='COURSE' || !!SEL[id]; }
+
+  var ROUND=[];
+  function buildRound(){
+    ROUND=[]; ORDER.forEach(function(id){ if(TOPIC_IDS[id] && isOn(id)) ROUND.push(id); });
+    ROUND.push('CLOSE');
+    var st=document.getElementById('planStart'); if(st) st.setAttribute('data-goto', ROUND[0]||'ACCESS');
+    var c=document.getElementById('planCount'); if(c){ var n=ROUND.length-1; c.textContent=n+' '+(n===1?'stop':'stops')+' in your round · plays through in order'; }
   }
   function renderPlan(){
-    var sum=document.getElementById('planSummary'), pathEl=document.getElementById('planPath'); if(!pathEl) return;
+    var sum=document.getElementById('planSummary'), wrap=document.getElementById('planBuild');
     var dep=(DEPARTMENTS[DEPT]?DEPARTMENTS[DEPT].label:'your team');
-    if(sum) sum.innerHTML='Built for <b class="hl">'+dep+'</b> &middot; <b class="hl">'+(FITFOCUS[PLAN.focus]||'a bit of everything')+'</b> &middot; <b class="hl">'+FITLEVELS[PLAN.level]+'</b>. Here are the holes I’d play, in order — tap any to jump in.';
-    var path=buildPath();
-    pathEl.innerHTML=path.map(function(id,i){ var m=planMeta(id); return '<button class="planrow" data-goto="'+id+'"><span class="pn">'+(i+1)+'</span><span><h4>'+m[0]+'</h4><div class="pw">'+m[1]+'</div></span></button>'; }).join('');
-    var st=document.getElementById('planStart'); if(st) st.setAttribute('data-goto', path[0]||'ACCESS');
+    if(sum) sum.innerHTML='My pick for <b class="hl">'+dep+'</b> · <b class="hl">'+(FITFOCUS[PLAN.focus]||'a bit of everything')+'</b> · <b class="hl">'+FITLEVELS[PLAN.level]+'</b>. Add or remove anything — the round plays in order.';
+    if(wrap){
+      wrap.innerHTML=SECTIONS.map(function(sec){
+        var count=0, rows=sec.topics.map(function(t){
+          var sel=isOn(t.id); if(sel) count++;
+          var nm=(t.id==='COURSE')?(dep+' plays'):t.name;
+          var lock=t.locked?'<span class="lk">always in</span>':'';
+          return '<button class="ptopic '+(sel?'on':'off')+(t.locked?' locked':'')+'" data-topic="'+t.id+'"><span class="tk">✓</span><span><b>'+nm+lock+'</b><small>'+t.why+'</small></span></button>';
+        }).join('');
+        return '<div class="psec"><div class="psec-h"><span class="pn">'+sec.label+'</span><span class="pt">'+sec.tag+'</span><span class="pc">'+count+'/'+sec.topics.length+'</span></div>'+rows+'</div>';
+      }).join('');
+    }
+    buildRound();
   }
-  document.addEventListener('click',function(e){ var b=e.target.closest('#TEE [data-fit]'); if(!b) return; var ax=b.dataset.fit, v=b.dataset.val; if(ax==='focus') PLAN.focus=v; else if(ax==='level') PLAN.level=+v; else if(ax==='dept') DEPT=v; savePlan(); renderFitting(); });
+  document.addEventListener('click',function(e){ var b=e.target.closest('#TEE [data-fit]'); if(!b) return; var ax=b.dataset.fit, v=b.dataset.val; if(ax==='focus') PLAN.focus=v; else if(ax==='level') PLAN.level=+v; else if(ax==='dept') DEPT=v; SEL=computeDefaults(); savePlan(); saveSel(); renderFitting(); if(ax==='dept') applyGate(); });
+  document.addEventListener('click',function(e){ var b=e.target.closest('#AGENDA .ptopic'); if(!b) return; var id=b.dataset.topic; if(id==='COURSE') return; if(SEL[id]) delete SEL[id]; else SEL[id]=true; saveSel(); renderPlan(); });
   /* ---------- THE BAG · "which tool for which shot" picker ---------- */
   var SHOTS={
     write:{t:'Claude',w:'Best writing quality and long output — briefs, reports, articles, full documents.',a:'If it should live in Word, M365 Copilot can draft it in place.'},
@@ -1394,8 +1479,9 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     el.innerHTML='<div class="rk">Reach for</div><div class="rt">'+s.t+'</div><p>'+s.w+'</p>'+(s.a?'<p class="alt">↳ '+s.a+'</p>':''); }
   document.addEventListener('click',function(e){ var c=e.target.closest('#shotChips .shotchip'); if(c){ document.querySelectorAll('#shotChips .shotchip').forEach(function(x){x.classList.toggle('on',x===c);}); renderShot(c.dataset.shot); } });
   function reset(){ history.length=0; visited.clear(); go('T', false); }
-  function next(){ const i=ORDER.indexOf(current); if(i>-1 && i<ORDER.length-1) go(ORDER[i+1]); }
-  function prev(){ const i=ORDER.indexOf(current); if(i>0) go(ORDER[i-1]); }
+  function seq(){ return (ROUND.length && ROUND.indexOf(current)>-1) ? ROUND : ORDER; }
+  function next(){ const s=seq(), i=s.indexOf(current); if(i>-1 && i<s.length-1) go(s[i+1]); }
+  function prev(){ const s=seq(), i=s.indexOf(current); if(i>0) go(s[i-1]); }
 
   function updateChrome(){
     const node=NODES[current]; const br=node.dataset.branch;
@@ -1413,9 +1499,9 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     if(b){ b.nodes.forEach(nid=>{ const i=document.createElement('i'); i.className=(nid===current)?'on':(history.includes(nid)?'seen':''); cr.appendChild(i); }); }
     document.getElementById('backBtn').disabled = history.length===0;
     document.getElementById('kbdHint').style.opacity = (current==='T'||current==='COURSE')?'.85':'0';
-    const ei=ORDER.indexOf(current);
+    const sq=seq(); const ei=sq.indexOf(current);
     document.getElementById('edgePrev').classList.toggle('hide', ei<=0);
-    document.getElementById('edgeNext').classList.toggle('hide', ei>=ORDER.length-1);
+    document.getElementById('edgeNext').classList.toggle('hide', ei>=sq.length-1);
   }
 
   /* ---------- delegated clicks ---------- */
@@ -1557,7 +1643,7 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
   });
 
   /* ---------- init ---------- */
-  current='T'; NODES.T.classList.add('active'); updateChrome(); renderPoll(); rangeUpdate(); requestAnimationFrame(function(){fitNode(NODES.T);});
+  current='T'; NODES.T.classList.add('active'); buildRound(); applyGate(); updateChrome(); renderPoll(); rangeUpdate(); requestAnimationFrame(function(){fitNode(NODES.T);});
 })();
 </script>
 
