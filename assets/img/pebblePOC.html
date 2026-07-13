@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TaylorMade & Pebble Beach Custom Catalog</title>
+<style>
+:root{
+  --black:#000; --bg:#141414; --panel:#202020; --card:#1E1E1E;
+  --line:#333333; --red:#E2001A; --white:#FFFFFF; --muted:#9A9A9A;
+  --din:"DIN Next 79","DIN Next LT Pro","DIN Next","DIN Alternate","Bahnschrift","Arial Narrow",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+html,body{scroll-behavior: smooth; margin:0; padding:0;}
+body{
+  background:var(--bg); color:var(--white); font-family:var(--din);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+.node{
+  display:flex; min-height:100vh;
+  flex-direction:column; justify-content:center; align-items:stretch;
+  padding:80px clamp(24px,4vw,64px); box-sizing:border-box;
+  position:relative;
+}
+.wrap{width:100%; max-width:1180px; margin:0 auto; position:relative; z-index:1}
+.bg{
+    position:absolute; inset:0; z-index:0; background-size:cover; 
+    background-position:center;
+}
+.bg::after{content:""; position:absolute; inset:0; background:linear-gradient(110deg,rgba(0,0,0,.88) 20%,rgba(0,0,0,.68) 60%, rgba(0,0,0,.82) 100%);}
+.kicker{font-size:12px; font-weight:700; letter-spacing:.34em; text-transform:uppercase; color:var(--muted)}
+.kicker .sep{color:var(--red); margin:0 .5em}
+h1{font-weight:800; text-transform:uppercase; line-height:.92; font-size:clamp(58px,11.5vw,150px); margin:0;}
+h2{font-weight:800; text-transform:uppercase; line-height:1.0; font-size:clamp(30px,4.6vw,58px); margin-top:0;}
+.lead{font-size:clamp(15px,1.55vw,19px); line-height:1.5; color:#f2f2f2; font-weight:400; max-width:60ch}
+.eyebrow{font-size:12px; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--red); display:flex; align-items:center; gap:12px; margin-bottom:18px}
+.eyebrow::before{content:""; width:26px; height:2px; background:var(--red); display:inline-block}
+.btn-primary{
+    display:inline-flex; align-items:center; gap:12px; background:var(--red); color:#fff; border:none; 
+    font-family:var(--din); font-weight:800; letter-spacing:.14em; text-transform:uppercase; 
+    font-size:15px; padding:16px 30px; border-radius:2px; cursor:pointer; transition:.25s var(--ease);
+    text-decoration: none;
+}
+.btn-primary:hover{background:#fff; color:#000; transform:translateY(-2px)}
+.btn-ghost{
+    display:inline-flex; align-items:center; gap:10px; background:transparent; border:1px solid var(--line); 
+    color:var(--white); font-family:var(--din); font-weight:700; letter-spacing:.1em; text-transform:uppercase; 
+    font-size:13px; padding:14px 24px; border-radius:2px; cursor:pointer; transition:.25s; text-decoration: none;
+}
+.btn-ghost:hover{border-color:var(--red);}
+.btnrow{display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; align-items:center}
+.choices{display:grid; gap:16px; margin-top:30px; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));}
+.choice{
+    position:relative; text-align:left; background:var(--card); border:1px solid var(--line); 
+    border-radius:3px; padding:22px 22px 20px; cursor:pointer; color:var(--white); 
+    font-family:var(--din); transition:.28s var(--ease); overflow:hidden; text-decoration: none;
+}
+.choice::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--red); transform:scaleY(0); transform-origin:top; transition:transform .3s var(--ease)}
+.choice:hover,.choice:focus-visible{border-color:var(--red); background:var(--panel); transform:translateY(-3px); outline:none}
+.choice:hover::before,.choice:focus-visible::before{transform:scaleY(1)}
+.choice h4{font-size:clamp(15px,1.45vw,18px); font-weight:700; text-transform:uppercase; letter-spacing:.04em; line-height:1.12; margin:0 0 9px;}
+.choice p{font-size:13.5px; line-height:1.45; color:var(--muted); margin:0;}
+.choice .img-wrap{
+    width: 100%;
+    height: 250px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+.topbar{
+    position: fixed; top:0; left:0; right:0; z-index:10;
+    display:flex; align-items:center; justify-content:space-between; 
+    padding:0 clamp(20px,3.4vw,46px); height:60px;
+    background: linear-gradient(180deg, rgba(18,18,18,0.8) 0%, rgba(18,18,18,0) 100%);
+}
+.topbar img{ height: 21px; opacity: .92; }
+.hero-logos { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+.hero-logos img { filter: drop-shadow(0 4px 15px rgba(0,0,0,.5)); }
+.hero-logos .separator { width: 2px; height: 50px; background: rgba(255,255,255,0.3); }
+.product-detail img {
+    max-width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    margin-top: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="wordmark-white.png" alt="TaylorMade">
+  <a href="#T" class="btn-ghost" style="font-size:11px;">Home</a>
+</div>
+
+<!-- TITLE NODE -->
+<section class="node" id="T">
+  <div class="bg" style="background-image:url('di_title.jpg')"></div>
+  <div class="wrap">
+    <div class="hero-logos">
+        <img src="metal-t.png" alt="TaylorMade" style="height:clamp(60px,10vw,100px);">
+        <div class="separator"></div>
+        <img src="TM Custom Catalog from Logo Studio - Pebble Beach.pdf.1.png" alt="Pebble Beach Logo" style="height:clamp(70px,12vw,110px);">
+    </div>
+    <h1>A PARTNERSHIP IN<br><span style="color:var(--red);">PERFORMANCE.</span></h1>
+    <p class="lead" style="margin-top:24px">An exclusive look at the custom corporate collection for Pebble Beach Company, brought to life with the quality and innovation of TaylorMade Golf.</p>
+    <div class="btnrow">
+      <a href="#intro" class="btn-primary">EXPLORE THE COLLECTION <span class="ar">▶</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO NODE -->
+<section class="node" id="intro">
+  <div class="bg" style="background-image:url('driver-heads.jpg')"></div>
+  <div class="wrap" style="max-width: 900px;">
+    <div class="eyebrow">The TaylorMade Custom Experience</div>
+    <h2>ALIGN WITH THE BEST</h2>
+    <p class="lead" style="margin-top:12px">More than just a logo on a product, this is an extension of your brand. Our Logo Studio offers a tour-level customization experience, ensuring every detail reflects the premium quality that both TaylorMade and its partners are known for. This interactive catalog is a preview of what's possible.</p>
+     <div class="btnrow">
+      <a href="#products" class="btn-ghost">View The Collection</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRODUCTS MENU NODE -->
+<section class="node" id="products">
+  <div class="bg" style="background-image:url('driver-row.jpg');"></div>
+  <div class="wrap">
+    <div class="eyebrow">Pebble Beach Custom Collection</div>
+    <h2>CHOOSE A CATEGORY</h2>
+    <p class="lead" style="margin-top:12px">Explore the possibilities of the Logo Studio project. Each item is customized with the iconic Pebble Beach logo, presented with studio-level quality.</p>
+    <div class="choices">
+      <a href="#golfbag" class="choice">
+        <div class="img-wrap" style="background-image:url('image_1783617835031941.png')"></div>
+        <h4>Golf Bag</h4>
+        <p>The anchor of any collection. Featuring a studio-quality render of the Cart Lite Golf Bag with the Pebble Beach logo.</p>
+      </a>
+      <a href="#golfball" class="choice">
+        <div class="img-wrap" style="background-image:url('image_1783618558986555.png')"></div>
+        <h4>Golf Balls</h4>
+        <p>The #1 ball in golf, customized. A realistic application of the Pebble Beach logo on our premium TP5 golf ball.</p>
+      </a>
+      <a href="#headwear" class="choice">
+        <div class="img-wrap" style="background-image:url('di_19th.jpg')"></div>
+        <h4>Headwear</h4>
+        <p>On-course visibility. Visualize the custom logo on our best-selling headwear, ready for the course.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GOLF BAG DETAIL -->
+<section class="node" id="golfbag">
+    <div class="bg" style="background-image:url('dawn-mist.jpg');"></div>
+    <div class="wrap" style="max-width: 960px; text-align: center;">
+        <div class="eyebrow" style="justify-content:center;">Product Detail</div>
+        <h2>CUSTOM GOLF BAG</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">This asset showcases the Pebble Beach logo seamlessly integrated onto the golf bag with professional, studio-quality lighting and detail, ready for a client presentation.</p>
+        <div class="product-detail">
+            <img src="image_1783617835031941.png" alt="Studio quality image of a TaylorMade golf bag with the Pebble Beach logo">
+        </div>
+        <div class="btnrow" style="justify-content:center;">
+            <a href="#products" class="btn-ghost">◀ Back to Collection</a>
+        </div>
+    </div>
+</section>
+
+<!-- GOLF BALL DETAIL -->
+<section class="node" id="golfball">
+    <div class="bg" style="background-image:url('ball.jpg');"></div>
+    <div class="wrap" style="max-width: 960px; text-align: center;">
+        <div class="eyebrow" style="justify-content:center;">Product Detail</div>
+        <h2>CUSTOM GOLF BALLS</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">This generated image demonstrates a photorealistic application of the customer's logo, maintaining the correct lighting, perspective, and texture of the golf ball's surface.</p>
+        <div class="product-detail">
+            <img src="image_1783618558986555.png" alt="Studio quality image of a TaylorMade golf ball with the Pebble Beach logo">
+        </div>
+        <div class="btnrow" style="justify-content:center;">
+            <a href="#products" class="btn-ghost">◀ Back to Collection</a>
+        </div>
+    </div>
+</section>
+
+<!-- HEADWEAR DETAIL (CONCEPT) -->
+<section class="node" id="headwear">
+    <div class="bg" style="background-image:url('di_demo2.jpg');"></div>
+    <div class="wrap" style="max-width: 960px; text-align: center;">
+        <div class="eyebrow" style="justify-content:center;">Product Detail (Conceptual)</div>
+        <h2>CUSTOM HEADWEAR</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">Our high-performance headwear provides a prominent and stylish location for a partner's logo. This concept shows how the Pebble Beach logo could be embroidered onto a cap.</p>
+        <div class="product-detail">
+            <img src="di_demo3.jpg" alt="Professional golfer wearing a cap, as a concept for custom headwear">
+            <p style="font-size:14px; color:var(--muted); margin-top:10px;"><b>Next Step:</b> An image generation specialist would replace the existing logo on the cap with the Pebble Beach logo, matching the embroidery texture and lighting to create a finished, client-ready asset.</p>
+        </div>
+        <div class="btnrow" style="justify-content:center;">
+            <a href="#products" class="btn-ghost">◀ Back to Collection</a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
