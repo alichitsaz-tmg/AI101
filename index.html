@@ -1528,8 +1528,8 @@ small.note{display:block; font-size:13px; color:var(--dim); line-height:1.5; mar
     if(document.activeElement && document.activeElement.isContentEditable) return;
     if(e.key==='Enter' && current==='T'){ next(); return; }
     if(/^[1-6]$/.test(e.key)){ const btn=NODES[current].querySelector('[data-key="'+e.key+'"]'); if(btn){ btn.click(); e.preventDefault(); return; } }
-    if(e.key==='ArrowRight'){ e.preventDefault(); next(); return; }
-    if(e.key==='ArrowLeft'){ e.preventDefault(); prev(); return; }
+   if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); next(); return; }
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); return; }  
     if(e.key==='Backspace'){ e.preventDefault(); back(); return; }
     if(e.key==='Home'){ e.preventDefault(); reset(); return; }
     if(e.key==='s'||e.key==='S'){ menu(); return; }
